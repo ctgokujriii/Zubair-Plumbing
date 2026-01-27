@@ -27,7 +27,7 @@ export default function About() {
   ];
 
   const stats = [
-    { number: '15+', label: 'Years Experience' },
+    { number: '20+', label: 'Years Experience' },
     { number: '5000+', label: 'Happy Clients' },
     { number: '24/7', label: 'Support Available' },
     { number: '100%', label: 'Satisfaction Rate' },
@@ -60,19 +60,19 @@ export default function About() {
             <div className="space-y-6">
               <h2 className="text-4xl font-bold text-gray-900">Our Story</h2>
               <p className="text-lg text-gray-700 leading-relaxed">
-                Founded in 2009, Zubair Plumbing Services has grown from a small local
+                Founded in 2005, Zubair Plumbing Services has grown from a small local
                 operation to one of the most trusted plumbing companies in the area. Our
                 journey began with a simple mission: to provide honest, reliable, and
                 professional plumbing services to our community.
               </p>
               <p className="text-lg text-gray-700 leading-relaxed">
-                With over 15 years of experience, we've built our reputation on quality
+                With over 20 years of experience, we've built our reputation on quality
                 workmanship, exceptional customer service, and unwavering integrity. Our
                 team of licensed and insured plumbers is dedicated to solving your plumbing
                 problems efficiently and effectively.
               </p>
               <p className="text-lg text-gray-700 leading-relaxed">
-                Today, we serve thousands of residential and commercial clients, handling
+                Today, we serve hundreds of residential and commercial clients, handling
                 everything from routine maintenance to complex installations and emergency
                 repairs. Our commitment to excellence and customer satisfaction remains the
                 cornerstone of everything we do.

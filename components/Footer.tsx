@@ -62,10 +62,7 @@ export default function Footer() {
 
   <ul className="space-y-3 mb-6">
     
-    <li className="flex items-start space-x-2 text-gray-400 text-sm">
-      <MapPin className="w-4 h-4 text-blue-400 mt-1" />
-      <span>196-A, Scheme Mor Multan Rd, Sabzazar Lahore, 54500</span>
-    </li>
+   
   </ul>
 
   {/* Google Reviews */}

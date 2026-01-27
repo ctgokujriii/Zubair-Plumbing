@@ -10,7 +10,6 @@ export default function Services() {
       title: 'Leak Repair',
       description: 'Expert leak detection and repair services to prevent water damage and save on utility costs.',
       features: [
-        'Advanced leak detection technology',
         'Pipe leak repairs',
         'Faucet and fixture repairs',
         'Water line repairs',
@@ -50,8 +49,7 @@ export default function Services() {
       description: 'Specialized kitchen plumbing services for optimal functionality and efficiency.',
       features: [
         'Kitchen sink installation',
-        'Garbage disposal services',
-        'Dishwasher installation',
+        
         'Kitchen faucet repair',
         'Water line installation',
         'Kitchen remodeling support',
@@ -60,7 +58,7 @@ export default function Services() {
     {
       icon: Zap,
       title: 'Emergency Services',
-      description: '24/7 emergency plumbing services with rapid response for urgent situations.',
+      description: '24/7 emergency plumbing services with rapid response for urgent situations, all over Lahore.',
       features: [
         'Available 24/7/365',
         'Fast response times',
@@ -160,10 +158,10 @@ export default function Services() {
                   Book a Service
                 </a>
                 <a
-                  href="tel:5551234567"
+                  href="tel:03124740940"
                   className="bg-blue-700 text-white px-8 py-4 rounded-lg font-semibold hover:bg-blue-800 transition-colors border-2 border-white text-center"
                 >
-                  Call (555) 123-4567
+                  Call 03124740940
                 </a>
               </div>
             </div>

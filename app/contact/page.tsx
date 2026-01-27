@@ -24,10 +24,17 @@ export default function Contact() {
     });
   };
 
-  const handleSubmit = async (e: React.FormEvent) => {
+  const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     setIsSubmitting(true);
 
+    const whatsappNumber = "923124740940"; // Zubair's WhatsApp number
+    const text = `Name: ${formData.name}%0AEmail: ${formData.email}%0APhone: ${formData.phone}%0AService: ${formData.service}%0AMessage: ${formData.message}`;
+
+    // Open WhatsApp Web / App in new tab
+    window.open(`https://wa.me/${whatsappNumber}?text=${text}`, "_blank");
+
+    // Reset form after short delay
     setTimeout(() => {
       setIsSubmitting(false);
       setSubmitStatus('success');
@@ -84,7 +91,7 @@ export default function Contact() {
                       onChange={handleChange}
                       required
                       className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all"
-                      placeholder="John Doe"
+                      placeholder="Zubair Ali"
                     />
                   </div>
 
@@ -100,7 +107,7 @@ export default function Contact() {
                       onChange={handleChange}
                       required
                       className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all"
-                      placeholder="john@example.com"
+                      placeholder="someone@somewhere.com"
                     />
                   </div>
 
@@ -116,7 +123,7 @@ export default function Contact() {
                       onChange={handleChange}
                       required
                       className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all"
-                      placeholder="(555) 123-4567"
+                      placeholder="0312 4740940"
                     />
                   </div>
 
@@ -133,14 +140,14 @@ export default function Contact() {
                       className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all"
                     >
                       <option value="">Select a service</option>
-                      <option value="leak-repair">Leak Repair</option>
-                      <option value="pipe-installation">Pipe Installation</option>
-                      <option value="bathroom-plumbing">Bathroom Plumbing</option>
-                      <option value="kitchen-plumbing">Kitchen Plumbing</option>
-                      <option value="emergency">Emergency Service</option>
-                      <option value="water-heater">Water Heater Service</option>
-                      <option value="drain-cleaning">Drain Cleaning</option>
-                      <option value="other">Other</option>
+                      <option value="Leak Repair">Leak Repair</option>
+                      <option value="Pipe Installation">Pipe Installation</option>
+                      <option value="Bathroom Plumbing">Bathroom Plumbing</option>
+                      <option value="Kitchen Plumbing">Kitchen Plumbing</option>
+                      <option value="Emergency Service">Emergency Service</option>
+                      <option value="Water Heater Repair/Installation">Water Heater Service</option>
+                      <option value="Drain Cleaning">Drain Cleaning</option>
+                      <option value="Other">Other</option>
                     </select>
                   </div>
 
@@ -176,7 +183,7 @@ export default function Contact() {
                     ) : (
                       <>
                         <Send className="w-5 h-5 mr-2" />
-                        Send Message
+                        Send via WhatsApp
                       </>
                     )}
                   </button>
@@ -195,8 +202,8 @@ export default function Contact() {
                     </div>
                     <div>
                       <h3 className="font-semibold text-gray-900 mb-1">Phone</h3>
-                      <a href="tel:5551234567" className="text-gray-600 hover:text-blue-600 transition-colors">
-                        (555) 123-4567
+                      <a href="tel:03124740940" className="text-gray-600 hover:text-blue-600 transition-colors">
+                        0312-4740940
                       </a>
                       <p className="text-sm text-gray-500 mt-1">Available 24/7</p>
                     </div>
@@ -208,8 +215,8 @@ export default function Contact() {
                     </div>
                     <div>
                       <h3 className="font-semibold text-gray-900 mb-1">Email</h3>
-                      <a href="mailto:info@zubairplumbing.com" className="text-gray-600 hover:text-blue-600 transition-colors">
-                        info@zubairplumbing.com
+                      <a href="mailto:za107112@gmail.com" className="text-gray-600 hover:text-blue-600 transition-colors">
+                        za107112@gmail.com
                       </a>
                       <p className="text-sm text-gray-500 mt-1">We'll respond within 24 hours</p>
                     </div>
@@ -222,9 +229,9 @@ export default function Contact() {
                     <div>
                       <h3 className="font-semibold text-gray-900 mb-1">Address</h3>
                       <p className="text-gray-600">
-                        123 Main Street<br />
-                        Suite 100<br />
-                        City, State 12345
+                        196-A, Scheme Mor <br />
+                        Multan Rd, <br />
+                        Sabzazar, Lahore
                       </p>
                     </div>
                   </div>
@@ -236,8 +243,8 @@ export default function Contact() {
                     <div>
                       <h3 className="font-semibold text-gray-900 mb-1">Business Hours</h3>
                       <div className="text-gray-600 space-y-1">
-                        <p>Monday - Friday: 8:00 AM - 6:00 PM</p>
-                        <p>Saturday: 9:00 AM - 4:00 PM</p>
+                        <p>Monday - Friday: 10:00 AM - 6:00 PM</p>
+                        <p>Saturday: Emergency Service Only</p>
                         <p>Sunday: Emergency Service Only</p>
                         <p className="text-blue-600 font-semibold mt-2">24/7 Emergency Service</p>
                       </div>
@@ -252,7 +259,7 @@ export default function Contact() {
                   Plumbing emergency? Don't wait! Call us now for immediate assistance.
                 </p>
                 <a
-                  href="tel:5551234567"
+                  href="tel:03124740940"
                   className="block w-full bg-white text-blue-600 px-8 py-4 rounded-lg font-semibold hover:bg-gray-100 transition-colors text-center shadow-lg"
                 >
                   Call Emergency Line
