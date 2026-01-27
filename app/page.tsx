@@ -37,23 +37,54 @@ export default function Home() {
 
   const testimonials = [
     {
-      name: 'Sarah Johnson',
+      name: 'Khadija Imran',
       role: 'Homeowner',
-      content: 'Zubair Plumbing fixed our burst pipe emergency within an hour. Professional, efficient, and reasonably priced. Highly recommend!',
+      content: 'Excellent service 10/10. Arrived on time, was friendly and respectful, did an amazing job and leave a very good impression. Would contact again if needed 👍👍. A highly recommended and professional man …',
       rating: 5,
     },
     {
-      name: 'Michael Chen',
+      name: 'Mona Maaow',
       role: 'Business Owner',
-      content: 'They handled our restaurant kitchen plumbing renovation perfectly. Great communication and quality work throughout the project.',
+      content: 'Owesome work done very efficiently & satisfied work. Behaviour is very humble & helpful,really appreciate work highly recommended.Professional, honest, and skilled plumber.Excellent service from start to finish 10/10.He gave a excellent service in a reasonable charges.',
       rating: 5,
     },
     {
-      name: 'Emily Rodriguez',
+      name: 'Muhammad Hassan',
       role: 'Property Manager',
-      content: 'We use Zubair Plumbing for all our properties. Reliable, professional, and always deliver excellent results. Our go-to plumbers!',
+      content: 'Excellent service Arrived on time, worked efficiently, and fixed the problem quickly. Very professional and friendly highly recommended 10/10!! Had a super tiresome and poor experience with other plumbers but this team managed everything from scratch and quite cost-effectively.',
       rating: 5,
     },
+    {
+      name: 'Dua Razzaq',
+      role: 'House owner',
+      content: 'Recommended 10/10!!! Excellent work! Had a super tiresome and poor experience with other plumbers but this team managed everything from scratch and quite cost-effectively. May they flourish further.',
+      rating: 5,
+    },
+    {
+      name: 'Qais Ul Malook',
+      role: 'Property Manager',
+      content: 'Good and satisfactory work.Called him for a geyser fixation and it worked pretty well. Recommended for any plumbing services.',
+      rating: 5,
+    },
+    {
+      name: 'Mohammad Esa Mohyuddin',
+      role: 'Business Owner',
+      content: 'The work was done honestly and quickly at a cheap rate. Highly recommended',
+      rating: 5,
+    },
+    {
+      name: 'Ibraheem Mir',
+      role: 'Property Manager',
+      content: 'I ordered tank cleaning and filling service. Very co-operative service and timely work done.',
+      rating: 5,
+    },
+    {
+      name: 'Habib Mehran',
+      role: 'House Owner',
+      content: 'Best plumber In the market they are giving good service to their customers and full responsibility so plz guys contact him',
+      rating: 5,
+    },
+    
   ];
 
   return (
