@@ -44,7 +44,7 @@ export default function About() {
               About <span className="text-blue-600">Zubair Plumbing</span>
             </h1>
             <p className="text-xl text-gray-600 max-w-3xl mx-auto leading-relaxed">
-              Your trusted partner for professional plumbing services since 2009
+              Your trusted partner for professional plumbing services since 2005
             </p>
           </div>
 
