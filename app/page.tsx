@@ -1,11 +1,12 @@
+'use client';
 import Link from 'next/link';
 import { Wrench, Droplets, Zap, ShowerHead, Clock, Shield } from 'lucide-react';
+import { useState } from 'react';
 import Navbar from '@/components/Navbar';
 import Footer from '@/components/Footer';
 import Hero from '@/components/Hero';
 import ServiceCard from '@/components/ServiceCard';
-import TestimonialCard from '@/components/TestimonialCard';
-
+import TestimonialsCarousel from '@/components/TestimonialsCarousel'; // updated import
 
 export default function Home() {
   const services = [
@@ -84,7 +85,6 @@ export default function Home() {
       content: 'Best plumber In the market they are giving good service to their customers and full responsibility so plz guys contact him',
       rating: 5,
     },
-    
   ];
 
   return (
@@ -93,6 +93,7 @@ export default function Home() {
 
       <Hero />
 
+      {/* Services Section */}
       <section className="py-20 bg-white">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-16">
@@ -127,6 +128,7 @@ export default function Home() {
         </div>
       </section>
 
+      {/* Why Choose Us */}
       <section className="py-20 bg-gray-50">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="grid md:grid-cols-2 gap-12 items-center">
@@ -196,6 +198,7 @@ export default function Home() {
         </div>
       </section>
 
+      {/* Testimonials Carousel */}
       <section className="py-20 bg-white">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-16">
@@ -207,20 +210,11 @@ export default function Home() {
             </p>
           </div>
 
-          <div className="grid md:grid-cols-3 gap-8">
-            {testimonials.map((testimonial, index) => (
-              <TestimonialCard
-                key={index}
-                name={testimonial.name}
-                role={testimonial.role}
-                content={testimonial.content}
-                rating={testimonial.rating}
-              />
-            ))}
-          </div>
+          <TestimonialsCarousel testimonials={testimonials} />
         </div>
       </section>
 
+      {/* Call to Action */}
       <section className="py-20 bg-blue-600 text-white">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
           <h2 className="text-4xl md:text-5xl font-bold mb-6">
