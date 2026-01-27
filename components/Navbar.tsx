@@ -23,7 +23,7 @@ export default function Navbar() {
               <Droplet className="w-6 h-6 text-white" />
             </div>
             <span className="text-2xl font-bold text-gray-800">
-              Zubair <span className="text-blue-600">Plumbing</span>
+              Zubair <span className="text-blue-600">Plumbing Service</span>
             </span>
           </Link>
 

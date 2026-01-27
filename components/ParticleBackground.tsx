@@ -6,14 +6,14 @@ interface Particle {
   x: number;
   y: number;
   size: number;
-  speedX: number;
-  speedY: number;
+  vx: number;
+  vy: number;
   opacity: number;
-  fade: number;
+  opacitySpeed: number;
 }
 
 export default function ParticleBackground() {
-  const canvasRef = useRef<HTMLCanvasElement>(null);
+  const canvasRef = useRef<HTMLCanvasElement | null>(null);
 
   useEffect(() => {
     const canvas = canvasRef.current;
@@ -22,8 +22,16 @@ export default function ParticleBackground() {
     const ctx = canvas.getContext('2d');
     if (!ctx) return;
 
-    let animationFrameId: number;
+    let animationId: number;
     let particles: Particle[] = [];
+
+    /* =========================
+       🔧 CONFIG (EDIT THESE)
+    ========================== */
+    const PARTICLE_COUNT = 300; // 👈 increase/decrease here
+    const MAX_DISTANCE = 10;
+    const COLOR = '59, 130, 246'; // Tailwind blue-500
+    /* ========================= */
 
     const resizeCanvas = () => {
       canvas.width = window.innerWidth;
@@ -34,49 +42,50 @@ export default function ParticleBackground() {
       x: Math.random() * canvas.width,
       y: Math.random() * canvas.height,
       size: Math.random() * 2 + 1,
-      speedX: (Math.random() - 0.5) * 0.5,
-      speedY: (Math.random() - 0.5) * 0.5,
+      vx: (Math.random() - 0.5) * 0.4,
+      vy: (Math.random() - 0.5) * 0.4,
       opacity: Math.random() * 0.5 + 0.2,
-      fade: (Math.random() - 0.5) * 0.01,
+      opacitySpeed: (Math.random() - 0.5) * 0.01,
     });
 
     const initParticles = () => {
-      const particleCount = Math.floor((canvas.width * canvas.height) / 15000);
-      particles = Array.from({ length: particleCount }, createParticle);
+      particles = Array.from({ length: PARTICLE_COUNT }, createParticle);
     };
 
-    const updateParticle = (particle: Particle) => {
-      particle.x += particle.speedX;
-      particle.y += particle.speedY;
-      particle.opacity += particle.fade;
+    const updateParticle = (p: Particle) => {
+      p.x += p.vx;
+      p.y += p.vy;
+      p.opacity += p.opacitySpeed;
 
-      if (particle.opacity <= 0.1 || particle.opacity >= 0.7) {
-        particle.fade *= -1;
+      if (p.opacity <= 0.15 || p.opacity >= 0.7) {
+        p.opacitySpeed *= -1;
       }
 
-      if (particle.x < 0 || particle.x > canvas.width) particle.speedX *= -1;
-      if (particle.y < 0 || particle.y > canvas.height) particle.speedY *= -1;
+      if (p.x <= 0 || p.x >= canvas.width) p.vx *= -1;
+      if (p.y <= 0 || p.y >= canvas.height) p.vy *= -1;
     };
 
-    const drawParticle = (particle: Particle) => {
+    const drawParticle = (p: Particle) => {
       ctx.beginPath();
-      ctx.arc(particle.x, particle.y, particle.size, 0, Math.PI * 2);
-      ctx.fillStyle = `rgba(59, 130, 246, ${particle.opacity})`;
+      ctx.arc(p.x, p.y, p.size, 0, Math.PI * 2);
+      ctx.fillStyle = `rgba(${COLOR}, ${p.opacity})`;
       ctx.fill();
 
+      // glow
       const gradient = ctx.createRadialGradient(
-        particle.x,
-        particle.y,
+        p.x,
+        p.y,
         0,
-        particle.x,
-        particle.y,
-        particle.size * 3
+        p.x,
+        p.y,
+        p.size * 3
       );
-      gradient.addColorStop(0, `rgba(147, 197, 253, ${particle.opacity * 0.5})`);
-      gradient.addColorStop(1, 'rgba(59, 130, 246, 0)');
+      gradient.addColorStop(0, `rgba(${COLOR}, ${p.opacity * 0.5})`);
+      gradient.addColorStop(1, `rgba(${COLOR}, 0)`);
+
       ctx.fillStyle = gradient;
       ctx.beginPath();
-      ctx.arc(particle.x, particle.y, particle.size * 3, 0, Math.PI * 2);
+      ctx.arc(p.x, p.y, p.size * 3, 0, Math.PI * 2);
       ctx.fill();
     };
 
@@ -87,9 +96,9 @@ export default function ParticleBackground() {
           const dy = particles[i].y - particles[j].y;
           const distance = Math.sqrt(dx * dx + dy * dy);
 
-          if (distance < 120) {
+          if (distance < MAX_DISTANCE) {
             ctx.beginPath();
-            ctx.strokeStyle = `rgba(59, 130, 246, ${0.15 * (1 - distance / 120)})`;
+            ctx.strokeStyle = `rgba(${COLOR}, ${0.15 * (1 - distance / MAX_DISTANCE)})`;
             ctx.lineWidth = 0.5;
             ctx.moveTo(particles[i].x, particles[i].y);
             ctx.lineTo(particles[j].x, particles[j].y);
@@ -102,14 +111,14 @@ export default function ParticleBackground() {
     const animate = () => {
       ctx.clearRect(0, 0, canvas.width, canvas.height);
 
-      particles.forEach((particle) => {
-        updateParticle(particle);
-        drawParticle(particle);
+      particles.forEach((p) => {
+        updateParticle(p);
+        drawParticle(p);
       });
 
       connectParticles();
 
-      animationFrameId = requestAnimationFrame(animate);
+      animationId = requestAnimationFrame(animate);
     };
 
     resizeCanvas();
@@ -125,7 +134,7 @@ export default function ParticleBackground() {
 
     return () => {
       window.removeEventListener('resize', handleResize);
-      cancelAnimationFrame(animationFrameId);
+      cancelAnimationFrame(animationId);
     };
   }, []);
 

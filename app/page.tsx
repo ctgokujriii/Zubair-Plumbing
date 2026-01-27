@@ -6,6 +6,7 @@ import Hero from '@/components/Hero';
 import ServiceCard from '@/components/ServiceCard';
 import TestimonialCard from '@/components/TestimonialCard';
 
+
 export default function Home() {
   const services = [
     {
@@ -29,7 +30,7 @@ export default function Home() {
     {
       icon: Zap,
       title: 'Emergency Services',
-      description: '24/7 emergency plumbing services with rapid response times.',
+      description: '24/7 emergency plumbing services with rapid response times, all over Lahore.',
       features: ['Available 24/7', 'Fast response', 'Burst pipe repairs', 'Emergency leak fixes'],
     },
   ];
@@ -100,7 +101,7 @@ export default function Home() {
           <div className="grid md:grid-cols-2 gap-12 items-center">
             <div>
               <img
-                src="https://images.pexels.com/photos/4792486/pexels-photo-4792486.jpeg?auto=compress&cs=tinysrgb&w=800"
+                src="https://images.pexels.com/photos/6419128/pexels-photo-6419128.jpeg"
                 alt="Why Choose Us"
                 className="rounded-2xl shadow-xl"
               />
@@ -205,10 +206,10 @@ export default function Home() {
               Book a Service
             </Link>
             <a
-              href="tel:5551234567"
+              href="tel:03124740940"
               className="bg-blue-700 text-white px-8 py-4 rounded-lg font-semibold hover:bg-blue-800 transition-colors border-2 border-white text-lg"
             >
-              Call (555) 123-4567
+              Call 03124740940
             </a>
           </div>
         </div>

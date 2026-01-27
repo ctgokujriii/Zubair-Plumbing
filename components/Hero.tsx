@@ -19,7 +19,7 @@ export default function Hero() {
               </h1>
               <p className="text-xl text-gray-600 leading-relaxed">
                 Expert plumbing solutions for your home and business. Available 24/7 for
-                emergency services with quick response times.
+                emergency services with quick response times, anywhere in Lahore.
               </p>
             </div>
 
@@ -34,7 +34,7 @@ export default function Hero() {
                 href="tel:5551234567"
                 className="bg-white text-blue-600 px-8 py-4 rounded-lg font-semibold hover:bg-gray-50 transition-all border-2 border-blue-600 text-center text-lg"
               >
-                Call (555) 123-4567
+                Call 0312 4740940
               </a>
             </div>
 
@@ -49,7 +49,7 @@ export default function Hero() {
                 <div className="bg-blue-100 w-12 h-12 rounded-full flex items-center justify-center mx-auto mb-2">
                   <Award className="w-6 h-6 text-blue-600" />
                 </div>
-                <p className="text-sm font-semibold text-gray-700">15+ Years Experience</p>
+                <p className="text-sm font-semibold text-gray-700">20+ Years Experience</p>
               </div>
               <div className="text-center">
                 <div className="bg-blue-100 w-12 h-12 rounded-full flex items-center justify-center mx-auto mb-2">
@@ -70,7 +70,7 @@ export default function Hero() {
               <div className="absolute -bottom-6 -left-6 bg-white p-6 rounded-xl shadow-xl">
                 <div className="flex items-center space-x-4">
                   <div className="bg-blue-600 text-white text-2xl font-bold w-16 h-16 rounded-full flex items-center justify-center">
-                    15+
+                    20+
                   </div>
                   <div>
                     <p className="font-semibold text-gray-900">Years of</p>

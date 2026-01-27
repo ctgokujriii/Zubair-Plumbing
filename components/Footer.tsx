@@ -1,6 +1,6 @@
 import Link from 'next/link';
 import { Phone, Mail, MapPin, Droplet, Facebook, Twitter, Instagram } from 'lucide-react';
-
+import GoogleMapReviews from './GoogleMapReviews';
 export default function Footer() {
   return (
     <footer className="bg-gray-900 text-white">
@@ -56,39 +56,38 @@ export default function Footer() {
               <li>Emergency Services</li>
             </ul>
           </div>
-
+</div>
           <div>
-            <h3 className="text-lg font-semibold mb-4">Contact Info</h3>
-            <ul className="space-y-3">
-              <li className="flex items-center space-x-2 text-gray-400 text-sm">
-                <Phone className="w-4 h-4 text-blue-400" />
-                <span>(555) 123-4567</span>
-              </li>
-              <li className="flex items-center space-x-2 text-gray-400 text-sm">
-                <Mail className="w-4 h-4 text-blue-400" />
-                <span>info@zubairplumbing.com</span>
-              </li>
-              <li className="flex items-center space-x-2 text-gray-400 text-sm">
-                <MapPin className="w-4 h-4 text-blue-400" />
-                <span>123 Main Street, City, State</span>
-              </li>
-            </ul>
-            <div className="flex space-x-4 mt-4">
-              <a href="#" className="text-gray-400 hover:text-blue-400 transition-colors">
-                <Facebook className="w-5 h-5" />
-              </a>
-              <a href="#" className="text-gray-400 hover:text-blue-400 transition-colors">
-                <Twitter className="w-5 h-5" />
-              </a>
-              <a href="#" className="text-gray-400 hover:text-blue-400 transition-colors">
-                <Instagram className="w-5 h-5" />
-              </a>
-            </div>
-          </div>
-        </div>
+  <h3 className="text-lg font-semibold mb-4">Find Us</h3>
+
+  <ul className="space-y-3 mb-6">
+    
+    <li className="flex items-start space-x-2 text-gray-400 text-sm">
+      <MapPin className="w-4 h-4 text-blue-400 mt-1" />
+      <span>196-A, Scheme Mor Multan Rd, Sabzazar Lahore, 54500</span>
+    </li>
+  </ul>
+
+  {/* Google Reviews */}
+  <div className="rounded-lg overflow-hidden border border-gray-800">
+    <GoogleMapReviews />
+  </div>
+
+  <div className="flex space-x-4 mt-4">
+    <a href="#" className="text-gray-400 hover:text-blue-400 transition-colors">
+      <Facebook className="w-5 h-5" />
+    </a>
+    <a href="#" className="text-gray-400 hover:text-blue-400 transition-colors">
+      <Twitter className="w-5 h-5" />
+    </a>
+    <a href="#" className="text-gray-400 hover:text-blue-400 transition-colors">
+      <Instagram className="w-5 h-5" />
+    </a>
+  </div>
+</div>
 
         <div className="border-t border-gray-800 mt-8 pt-8 text-center text-gray-400 text-sm">
-          <p>&copy; {new Date().getFullYear()} Zubair Plumbing Services. All rights reserved.</p>
+          <p>&copy; {new Date().getFullYear()} Made with ❤️ by the TAIO Hub team.</p>
         </div>
       </div>
     </footer>
