@@ -30,16 +30,17 @@ export default function About() {
         <div className="flex flex-col md:flex-row items-center gap-12">
           {/* Image */}
           <div className="flex-shrink-0">
-            <div className="w-64 h-64 rounded-full bg-gray-200 border-4 border-blue-100 shadow-lg flex items-center justify-center overflow-hidden">
-              <Image
-                src="public/images/zubair.PNG" // Make sure this is in public/assets/images/
-                alt="Zubair"
-                width={256}
-                height={256}
-                className="w-full h-full object-cover rounded-full shadow-2xl shadow-cyan-500/30"
-                priority={true} // ensures it loads quickly
-              />
-            </div>
+           <div className="w-64 h-64 rounded-full bg-gray-200 border-4 border-blue-100 shadow-lg flex items-center justify-center overflow-hidden">
+  <Image
+    src="/images/Zubair.PNG" // must be public folder path
+    alt="Zubair"
+    width={256} // original image width
+    height={256} // original image height
+    className="w-full h-full object-cover rounded-full shadow-2xl shadow-cyan-500/30"
+    priority
+  />
+</div>
+
           </div>
 
           {/* Text Summary */}
