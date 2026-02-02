@@ -31,10 +31,11 @@ export default function Hero() {
                 Book a Service
               </Link>
               <a
-                href="tel:5551234567"
+                href="https://wa.me/923124740940"
+                target="blank"
                 className="bg-white text-blue-600 px-8 py-4 rounded-lg font-semibold hover:bg-gray-50 transition-all border-2 border-blue-600 text-center text-lg"
               >
-                Call 0312 4740940
+                Whatsapp Us
               </a>
             </div>
 
