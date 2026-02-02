@@ -32,7 +32,7 @@ export default function About() {
           <div className="flex-shrink-0">
            <div className="w-64 h-64 rounded-full bg-gray-200 border-4 border-blue-100 shadow-lg flex items-center justify-center overflow-hidden">
   <Image
-    src="/images/Zubair.PNG" // must be public folder path
+    src="https://i.postimg.cc/HLRmGQqn/zubair.png" // must be public folder path
     alt="Zubair"
     width={256} // original image width
     height={256} // original image height
