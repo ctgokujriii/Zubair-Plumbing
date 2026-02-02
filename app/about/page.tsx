@@ -28,15 +28,15 @@ export default function About() {
         </h2>
 
         <div className="flex flex-col md:flex-row items-center gap-12">
-          {/* Image */}
+          {/* Image Placeholder */}
           <div className="flex-shrink-0">
-            <div className="rounded-full bg-gray-200 border-4 border-blue-100 shadow-lg flex items-center justify-center overflow-hidden">
+            <div className="w-64 h-64 rounded-full bg-gray-200 border-4 border-blue-100 shadow-lg flex items-center justify-center overflow-hidden">
               <Image
-                src="/Assets/Images/Zubair.PNG"
+                src="/assets/images/Zubair.PNG" // <-- root-relative path from public
                 alt="Zubair"
-                width={500}  // Set to actual PNG width
-                height={500} // Set to actual PNG height
-                className="object-cover"
+                width={256} // set actual PNG width
+                height={256} // set actual PNG height
+                className="w-full h-full object-cover"
               />
             </div>
           </div>
