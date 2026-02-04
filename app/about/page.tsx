@@ -15,8 +15,9 @@ export default function About() {
           <h1 className="text-5xl font-bold text-gray-900 mb-6">
             About <span className="text-blue-600">Zubair Plumbing</span>
           </h1>
-          <p className="text-xl text-gray-600">
-            Professional plumbing services you can trust. Committed to quality, efficiency, and 24/7 availability for all your plumbing needs.
+          <p className="text-xl text-gray-600 max-w-3xl mx-auto">
+            Professional plumbing services you can trust. Committed to quality,
+            efficiency, and 24/7 availability for all your plumbing needs.
           </p>
         </div>
       </div>
@@ -27,29 +28,36 @@ export default function About() {
           Meet <span className="text-blue-600">Zubair</span>
         </h2>
 
-        <div className="flex flex-col md:flex-row items-center gap-12">
-          {/* Image */}
+        <div className="flex flex-col md:flex-row items-center gap-14">
+          
+          {/* Image Card */}
           <div className="flex-shrink-0">
-           <div className="w-64 h-64 rounded-full bg-gray-200 border-4 border-blue-100 shadow-lg flex items-center justify-center overflow-hidden">
-  <Image
-    src="https://i.postimg.cc/HLRmGQqn/zubair.png" // must be public folder path
-    alt="Zubair"
-    width={256} // original image width
-    height={256} // original image height
-    className="w-full h-full object-cover rounded-full shadow-2xl shadow-cyan-500/30"
-    priority
-  />
-</div>
-
+            <div className="w-80 h-96 md:w-96 md:h-[420px] bg-white rounded-3xl border border-gray-200 shadow-2xl overflow-hidden">
+              <Image
+                src="https://i.postimg.cc/HLRmGQqn/zubair.png"
+                alt="Zubair - Professional Plumber"
+                width={500}
+                height={600}
+                className="w-full h-full object-contain p-4"
+                priority
+              />
+            </div>
           </div>
 
           {/* Text Summary */}
           <div className="flex-1 text-center md:text-left">
-            <p className="text-lg text-gray-700 mb-4">
-              Zubair is 27 years old and has been working in the plumbing industry for over 12 years. His dedication, expertise, and hard-working attitude have earned him a reputation as a reliable and professional plumber.
+            <p className="text-lg text-gray-700 mb-5 leading-relaxed">
+              Zubair is 27 years old and has been working in the plumbing industry
+              for over 12 years. His dedication, technical expertise, and strong
+              work ethic have earned him a reputation as a reliable and
+              professional plumber.
             </p>
-            <p className="text-lg text-gray-700">
-              Passionate about delivering quality service, Zubair ensures every job is done efficiently and with utmost care, making him a trusted choice for both residential and commercial plumbing needs.
+
+            <p className="text-lg text-gray-700 leading-relaxed">
+              Passionate about delivering quality service, Zubair ensures every
+              job is completed efficiently and with attention to detail, making
+              him a trusted choice for both residential and commercial plumbing
+              needs.
             </p>
           </div>
         </div>
