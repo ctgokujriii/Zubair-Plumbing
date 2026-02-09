@@ -34,7 +34,7 @@ export default function About() {
           <div className="flex-shrink-0">
             <div className="w-80 h-96 md:w-96 md:h-[420px] bg-white rounded-3xl border border-gray-200 shadow-2xl overflow-hidden">
               <Image
-                src="https://i.postimg.cc/HLRmGQqn/zubair.png"
+                src="/zubair.webp"
                 alt="Zubair - Professional Plumber"
                 width={500}
                 height={600}
