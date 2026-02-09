@@ -2,7 +2,7 @@
 
 import { useState } from 'react';
 import { Phone, Mail, X } from 'lucide-react';
-import { FaWhatsapp } from 'react-icons/fa'; // colored WhatsApp icon
+import { FaWhatsapp } from 'react-icons/fa';
 
 export default function FloatingContactMenu() {
   const [open, setOpen] = useState(false);
@@ -43,9 +43,11 @@ export default function FloatingContactMenu() {
             target={item.target ?? '_self'}
             rel={item.target ? 'noopener noreferrer' : undefined}
             aria-label={item.ariaLabel}
-            className={`flex items-center gap-3 px-4 py-2 rounded-full shadow-lg transform transition-all duration-300 opacity-0 translate-y-4 hover:scale-105 hover:shadow-2xl ${item.color} ${
-              open ? `opacity-100 translate-y-0 delay-[${index * 75}ms]` : ''
-            }`}
+            className={`flex items-center gap-3 px-4 py-2 rounded-full shadow-lg transition-all duration-300 transform hover:scale-105 hover:shadow-2xl
+              ${item.color}
+              ${open ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4'}
+            `}
+            style={{ transitionDelay: open ? `${index * 75}ms` : '0ms' }}
           >
             {item.icon}
             <span className="font-semibold text-gray-900">{item.label}</span>
@@ -57,10 +59,10 @@ export default function FloatingContactMenu() {
       <button
         onClick={() => setOpen(!open)}
         aria-label="Contact us"
-        className="flex items-center justify-center w-16 h-16 rounded-full bg-blue-600 text-white shadow-xl hover:bg-blue-700 hover:shadow-2xl transition-transform transform active:scale-95"
+        className="flex items-center justify-center w-16 h-16 rounded-full bg-blue-600 text-white shadow-xl hover:bg-blue-700 hover:shadow-2xl transition-transform active:scale-95"
       >
         <span className="sr-only">Toggle contact menu</span>
-        <div className={`transition-transform duration-300 ${open ? 'rotate-45' : 'rotate-0'}`}>
+        <div className={`transition-transform duration-300 ${open ? 'rotate-45' : ''}`}>
           {open ? <X size={28} /> : <Mail size={28} />}
         </div>
       </button>
