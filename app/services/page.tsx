@@ -158,10 +158,10 @@ export default function Services() {
                   Book a Service
                 </a>
                 <a
-                  href="tel:03124740940"
+                  href="https://wa.me/923124740940"
                   className="bg-blue-700 text-white px-8 py-4 rounded-lg font-semibold hover:bg-blue-800 transition-colors border-2 border-white text-center"
                 >
-                  Call 03124740940
+                  Whatsapp Us
                 </a>
               </div>
             </div>
@@ -200,7 +200,7 @@ export default function Services() {
                   </svg>
                   <div>
                     <h4 className="font-semibold text-lg mb-1">Experienced Team</h4>
-                    <p className="opacity-90">Over 15 years of industry experience</p>
+                    <p className="opacity-90">Over 20 years of industry experience</p>
                   </div>
                 </li>
                 <li className="flex items-start">
