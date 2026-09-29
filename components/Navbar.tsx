@@ -22,8 +22,9 @@ export default function Navbar() {
             <div className="bg-blue-600 p-2 rounded-lg group-hover:bg-blue-700 transition-colors">
               <Droplet className="w-6 h-6 text-white" />
             </div>
-            <span className="text-2xl font-bold text-gray-800">
-              Zubair <span className="text-blue-600">Plumbing Service</span>
+            {/* Sized per breakpoint so the full name stays on one line beside the links */}
+            <span className="text-lg sm:text-2xl md:text-xl lg:text-2xl font-bold text-gray-800 whitespace-nowrap">
+              Zubair <span className="text-blue-600">Plumbing Services</span>
             </span>
           </Link>
 
@@ -42,13 +43,16 @@ export default function Navbar() {
 
           <Link
             href="/contact"
-            className="hidden md:block bg-blue-600 text-white px-6 py-3 rounded-lg font-semibold hover:bg-blue-700 transition-colors shadow-md hover:shadow-lg"
+            className="hidden lg:block bg-blue-600 text-white px-6 py-3 rounded-lg font-semibold hover:bg-blue-700 transition-colors shadow-md hover:shadow-lg"
           >
             Book a Service
           </Link>
 
           <button
             onClick={() => setIsOpen(!isOpen)}
+            aria-label={isOpen ? 'Close menu' : 'Open menu'}
+            aria-expanded={isOpen}
+            aria-controls="mobile-menu"
             className="md:hidden text-gray-700 hover:text-blue-600 transition-colors"
           >
             {isOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
@@ -57,7 +61,7 @@ export default function Navbar() {
       </div>
 
       {isOpen && (
-        <div className="md:hidden bg-white border-t">
+        <div id="mobile-menu" className="md:hidden bg-white border-t">
           <div className="px-4 pt-2 pb-4 space-y-3">
             {navLinks.map((link) => (
               <Link

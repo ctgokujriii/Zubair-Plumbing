@@ -1,27 +1,28 @@
 'use client';
 
-import { useState, useEffect, useRef } from 'react';
+import { useState, useEffect } from 'react';
+import { ChevronLeft, ChevronRight } from 'lucide-react';
 import TestimonialCard, { TestimonialCardProps } from './TestimonialCard';
 
 interface TestimonialsCarouselProps {
   testimonials: TestimonialCardProps[];
 }
 
+// Long enough to read a 50-word review. At the old 2.5s the card moved on
+// before most people reached the end of it.
+const AUTO_ADVANCE_MS = 7000;
+
 export default function TestimonialsCarousel({ testimonials }: TestimonialsCarouselProps) {
   const [currentIndex, setCurrentIndex] = useState(0);
-  const timeoutRef = useRef<NodeJS.Timeout | null>(null);
-
-  const resetTimeout = () => {
-    if (timeoutRef.current) clearTimeout(timeoutRef.current);
-  };
+  const [paused, setPaused] = useState(false);
 
   useEffect(() => {
-    resetTimeout();
-    timeoutRef.current = setTimeout(() => {
+    if (paused || window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+    const id = setTimeout(() => {
       setCurrentIndex((prevIndex) => (prevIndex + 1) % testimonials.length);
-    }, 2500); // auto-scroll every 2.5s
-    return () => resetTimeout();
-  }, [currentIndex, testimonials.length]);
+    }, AUTO_ADVANCE_MS);
+    return () => clearTimeout(id);
+  }, [currentIndex, paused, testimonials.length]);
 
   const getOffset = (index: number) => {
     let offset = index - currentIndex;
@@ -31,27 +32,36 @@ export default function TestimonialsCarousel({ testimonials }: TestimonialsCarou
   };
 
   // Only 3 dots at a time
-  const getVisibleDots = () => {
-    const dots = [];
-    const left = (currentIndex - 1 + testimonials.length) % testimonials.length;
-    const center = currentIndex;
-    const right = (currentIndex + 1) % testimonials.length;
-    dots.push(left, center, right);
-    return dots;
-  };
+  const visibleDots = [
+    (currentIndex - 1 + testimonials.length) % testimonials.length,
+    currentIndex,
+    (currentIndex + 1) % testimonials.length,
+  ];
 
-  const visibleDots = getVisibleDots();
+  const previous = () =>
+    setCurrentIndex((prevIndex) => (prevIndex - 1 + testimonials.length) % testimonials.length);
+  const next = () => setCurrentIndex((prevIndex) => (prevIndex + 1) % testimonials.length);
 
   return (
-    <div className="relative w-full max-w-3xl mx-auto py-12">
+    <div
+      className="relative w-full max-w-3xl mx-auto py-12"
+      role="region"
+      aria-roledescription="carousel"
+      aria-label="Customer reviews"
+      onMouseEnter={() => setPaused(true)}
+      onMouseLeave={() => setPaused(false)}
+      onFocus={() => setPaused(true)}
+      onBlur={() => setPaused(false)}
+    >
       {/* Carousel container */}
-      <div className="relative h-96 flex items-center justify-center overflow-hidden">
+      <div className="relative h-96 flex items-center justify-center overflow-hidden" aria-live={paused ? 'polite' : 'off'}>
         {testimonials.map((t, index) => {
           const offset = getOffset(index);
 
           return (
             <div
               key={index}
+              aria-hidden={offset !== 0}
               className="absolute top-0 left-1/2 transition-all duration-700 ease-in-out"
               style={{
                 transform: `translateX(calc(${offset * 100}% - 50%)) scale(${offset === 0 ? 1 : 0.8})`,
@@ -67,7 +77,7 @@ export default function TestimonialsCarousel({ testimonials }: TestimonialsCarou
       </div>
 
       {/* Dots */}
-      <div className="flex justify-center mt-6 space-x-2 relative z-20">
+      <div className="flex justify-center mt-6 space-x-2 relative z-20" aria-hidden="true">
         {visibleDots.map((dotIndex, idx) => {
           const isCenter = dotIndex === currentIndex;
           return (
@@ -81,22 +91,20 @@ export default function TestimonialsCarousel({ testimonials }: TestimonialsCarou
       </div>
 
       {/* Arrows */}
-      <div className="absolute inset-0 flex items-center justify-between px-2 top-[60%] z-20">
+      <div className="absolute inset-0 flex items-center justify-between px-2 top-[60%] z-20 pointer-events-none">
         <button
-          onClick={() =>
-            setCurrentIndex(
-              (prevIndex) => (prevIndex - 1 + testimonials.length) % testimonials.length
-            )
-          }
-          className="bg-blue-600 text-white rounded-full w-10 h-10 flex items-center justify-center hover:bg-blue-700 transition"
+          onClick={previous}
+          aria-label="Previous review"
+          className="pointer-events-auto bg-blue-600 text-white rounded-full w-10 h-10 flex items-center justify-center hover:bg-blue-700 transition"
         >
-          ‹
+          <ChevronLeft className="w-5 h-5" aria-hidden="true" />
         </button>
         <button
-          onClick={() => setCurrentIndex((prevIndex) => (prevIndex + 1) % testimonials.length)}
-          className="bg-blue-600 text-white rounded-full w-10 h-10 flex items-center justify-center hover:bg-blue-700 transition"
+          onClick={next}
+          aria-label="Next review"
+          className="pointer-events-auto bg-blue-600 text-white rounded-full w-10 h-10 flex items-center justify-center hover:bg-blue-700 transition"
         >
-          ›
+          <ChevronRight className="w-5 h-5" aria-hidden="true" />
         </button>
       </div>
     </div>

@@ -1,16 +1,8 @@
 import Link from 'next/link';
-import {
-  Phone,
-  Mail,
-  MapPin,
-  Droplet,
-  Facebook,
-  Twitter,
-  Instagram,
-  Youtube,
-} from 'lucide-react';
-import { FaTiktok } from 'react-icons/fa';
+import { Phone, Mail, MapPin, Droplet, Facebook, Youtube } from 'lucide-react';
+import { FaTiktok, FaWhatsapp } from 'react-icons/fa';
 import GoogleMapReviews from './GoogleMapReviews';
+import { site, fullAddress, whatsappLink } from '@/lib/site';
 
 export default function Footer() {
   return (
@@ -18,19 +10,56 @@ export default function Footer() {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
         {/* Main Grid */}
         <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
-          {/* Brand */}
+          {/* Brand and contact details. Name, address and phone on every page,
+              matching the Google listing, is what local search ranks on. */}
           <div className="space-y-4">
             <div className="flex items-center space-x-2">
               <div className="bg-blue-600 p-2 rounded-lg">
                 <Droplet className="w-6 h-6 text-white" />
               </div>
               <span className="text-xl font-bold">
-                Zubair <span className="text-blue-400">Plumbing</span>
+                Zubair <span className="text-blue-400">Plumbing Services</span>
               </span>
             </div>
             <p className="text-gray-400 text-sm">
-              Professional plumbing services you can trust. Available 24/7 for emergencies.
+              Family-run plumbing in Lahore for {site.businessYears}+ years. Open 24/7.
             </p>
+            <ul className="space-y-3 text-sm text-gray-300">
+              <li>
+                <a href={`tel:${site.phoneTel}`} className="flex items-center gap-2 hover:text-blue-400 transition-colors">
+                  <Phone className="w-4 h-4 flex-shrink-0" aria-hidden="true" />
+                  {site.phoneDisplay}
+                </a>
+              </li>
+              <li>
+                <a
+                  href={whatsappLink()}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="flex items-center gap-2 hover:text-green-400 transition-colors"
+                >
+                  <FaWhatsapp className="w-4 h-4 flex-shrink-0" aria-hidden="true" />
+                  WhatsApp
+                </a>
+              </li>
+              <li>
+                <a href={`mailto:${site.email}`} className="flex items-center gap-2 hover:text-blue-400 transition-colors break-all">
+                  <Mail className="w-4 h-4 flex-shrink-0" aria-hidden="true" />
+                  {site.email}
+                </a>
+              </li>
+              <li>
+                <a
+                  href={site.mapsUrl}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="flex items-start gap-2 hover:text-blue-400 transition-colors"
+                >
+                  <MapPin className="w-4 h-4 flex-shrink-0 mt-0.5" aria-hidden="true" />
+                  {fullAddress}
+                </a>
+              </li>
+            </ul>
           </div>
 
           {/* Quick Links */}
@@ -67,7 +96,7 @@ export default function Footer() {
             {/* Social Icons */}
             <div className="flex space-x-5">
               <a
-                href="https://web.facebook.com/zubair.ali.798760/"
+                href={site.social.facebook}
                 target="_blank"
                 rel="noopener noreferrer"
                 aria-label="Facebook"
@@ -77,7 +106,7 @@ export default function Footer() {
               </a>
 
               <a
-                href="https://www.tiktok.com/@zubairali074"
+                href={site.social.tiktok}
                 target="_blank"
                 rel="noopener noreferrer"
                 aria-label="TikTok"
@@ -87,7 +116,7 @@ export default function Footer() {
               </a>
 
               <a
-                href="https://www.youtube.com/@zubairali3279"
+                href={site.social.youtube}
                 target="_blank"
                 rel="noopener noreferrer"
                 aria-label="YouTube"
@@ -101,7 +130,7 @@ export default function Footer() {
 
         {/* Bottom Bar */}
         <div className="border-t border-gray-800 mt-10 pt-6 text-center text-gray-400 text-sm">
-          <p>&copy; {new Date().getFullYear()} Made with ❤️ by the TAIO Hub team.</p>
+          <p>&copy; {new Date().getFullYear()} {site.name}. Made with ❤️ by the TAIO Hub team.</p>
         </div>
       </div>
     </footer>

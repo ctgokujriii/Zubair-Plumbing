@@ -1,91 +1,65 @@
-'use client';
+import type { Metadata } from 'next';
 import Link from 'next/link';
-import { Wrench, Droplets, Zap, ShowerHead, Clock, Shield } from 'lucide-react';
-import { useState } from 'react';
+import { Clock, HandCoins, Users, Star } from 'lucide-react';
 import Navbar from '@/components/Navbar';
 import Footer from '@/components/Footer';
 import Hero from '@/components/Hero';
 import ServiceCard from '@/components/ServiceCard';
-import TestimonialsCarousel from '@/components/TestimonialsCarousel'; // updated import
+import TestimonialsCarousel from '@/components/TestimonialsCarousel';
+import { services, featuredServiceTitles } from '@/lib/services';
+import { site, zubairYears, whatsappLink } from '@/lib/site';
+
+export const metadata: Metadata = {
+  alternates: { canonical: '/' },
+};
+
+// Real Google reviews of the business, quoted as written.
+const testimonials = [
+  {
+    name: 'Khadija Imran',
+    content: 'Excellent service 10/10. Arrived on time, was friendly and respectful, did an amazing job and leave a very good impression. Would contact again if needed 👍👍. A highly recommended and professional man …',
+    rating: 5,
+  },
+  {
+    name: 'Mona Maaow',
+    content: 'Owesome work done very efficiently & satisfied work. Behaviour is very humble & helpful,really appreciate work highly recommended.Professional, honest, and skilled plumber.Excellent service from start to finish 10/10.He gave a excellent service in a reasonable charges.',
+    rating: 5,
+  },
+  {
+    name: 'Muhammad Hassan',
+    content: 'Excellent service Arrived on time, worked efficiently, and fixed the problem quickly. Very professional and friendly highly recommended 10/10!! Had a super tiresome and poor experience with other plumbers but this team managed everything from scratch and quite cost-effectively.',
+    rating: 5,
+  },
+  {
+    name: 'Dua Razzaq',
+    content: 'Recommended 10/10!!! Excellent work! Had a super tiresome and poor experience with other plumbers but this team managed everything from scratch and quite cost-effectively. May they flourish further.',
+    rating: 5,
+  },
+  {
+    name: 'Qais Ul Malook',
+    content: 'Good and satisfactory work.Called him for a geyser fixation and it worked pretty well. Recommended for any plumbing services.',
+    rating: 5,
+  },
+  {
+    name: 'Mohammad Esa Mohyuddin',
+    content: 'The work was done honestly and quickly at a cheap rate. Highly recommended',
+    rating: 5,
+  },
+  {
+    name: 'Ibraheem Mir',
+    content: 'I ordered tank cleaning and filling service. Very co-operative service and timely work done.',
+    rating: 5,
+  },
+  {
+    name: 'Habib Mehran',
+    content: 'Best plumber In the market they are giving good service to their customers and full responsibility so plz guys contact him',
+    rating: 5,
+  },
+];
 
 export default function Home() {
-  const services = [
-    {
-      icon: Droplets,
-      title: 'Leak Repair',
-      description: 'Fast and efficient leak detection and repair services for all types of plumbing systems.',
-      features: ['Pipe leak repairs', 'Faucet fixes', 'Water line repairs', 'Emergency service available'],
-    },
-    {
-      icon: Wrench,
-      title: 'Pipe Installation',
-      description: 'Professional pipe installation and replacement services using quality materials.',
-      features: ['New construction piping', 'Pipe replacement', 'Re-piping services', 'PEX and copper pipes'],
-    },
-    {
-      icon: ShowerHead,
-      title: 'Bathroom Plumbing',
-      description: 'Complete bathroom plumbing solutions from installation to repairs.',
-      features: ['Toilet installation & repair', 'Shower & tub services', 'Sink installations', 'Bathroom remodels'],
-    },
-    {
-      icon: Zap,
-      title: 'Emergency Services',
-      description: '24/7 emergency plumbing services with rapid response times, all over Lahore.',
-      features: ['Available 24/7', 'Fast response', 'Burst pipe repairs', 'Emergency leak fixes'],
-    },
-  ];
-
-  const testimonials = [
-    {
-      name: 'Khadija Imran',
-      role: 'Homeowner',
-      content: 'Excellent service 10/10. Arrived on time, was friendly and respectful, did an amazing job and leave a very good impression. Would contact again if needed 👍👍. A highly recommended and professional man …',
-      rating: 5,
-    },
-    {
-      name: 'Mona Maaow',
-      role: 'Business Owner',
-      content: 'Owesome work done very efficiently & satisfied work. Behaviour is very humble & helpful,really appreciate work highly recommended.Professional, honest, and skilled plumber.Excellent service from start to finish 10/10.He gave a excellent service in a reasonable charges.',
-      rating: 5,
-    },
-    {
-      name: 'Muhammad Hassan',
-      role: 'Property Manager',
-      content: 'Excellent service Arrived on time, worked efficiently, and fixed the problem quickly. Very professional and friendly highly recommended 10/10!! Had a super tiresome and poor experience with other plumbers but this team managed everything from scratch and quite cost-effectively.',
-      rating: 5,
-    },
-    {
-      name: 'Dua Razzaq',
-      role: 'House owner',
-      content: 'Recommended 10/10!!! Excellent work! Had a super tiresome and poor experience with other plumbers but this team managed everything from scratch and quite cost-effectively. May they flourish further.',
-      rating: 5,
-    },
-    {
-      name: 'Qais Ul Malook',
-      role: 'Property Manager',
-      content: 'Good and satisfactory work.Called him for a geyser fixation and it worked pretty well. Recommended for any plumbing services.',
-      rating: 5,
-    },
-    {
-      name: 'Mohammad Esa Mohyuddin',
-      role: 'Business Owner',
-      content: 'The work was done honestly and quickly at a cheap rate. Highly recommended',
-      rating: 5,
-    },
-    {
-      name: 'Ibraheem Mir',
-      role: 'Property Manager',
-      content: 'I ordered tank cleaning and filling service. Very co-operative service and timely work done.',
-      rating: 5,
-    },
-    {
-      name: 'Habib Mehran',
-      role: 'House Owner',
-      content: 'Best plumber In the market they are giving good service to their customers and full responsibility so plz guys contact him',
-      rating: 5,
-    },
-  ];
+  const featured = services.filter((s) => featuredServiceTitles.includes(s.title));
+  const others = services.filter((s) => !featuredServiceTitles.includes(s.title));
 
   return (
     <div className="min-h-screen">
@@ -101,20 +75,30 @@ export default function Home() {
               Our Services
             </h2>
             <p className="text-xl text-gray-600 max-w-2xl mx-auto">
-              Comprehensive plumbing solutions for residential and commercial properties
+              Every plumbing job a home or business needs, and the minor construction that comes with it
             </p>
           </div>
 
           <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
-            {services.map((service, index) => (
-              <ServiceCard
-                key={index}
-                icon={service.icon}
-                title={service.title}
-                description={service.description}
-                features={service.features}
-              />
+            {featured.map((service) => (
+              <ServiceCard key={service.title} {...service} />
             ))}
+          </div>
+
+          <div className="mt-12 text-center">
+            <p className="text-gray-600 font-semibold mb-4">We also handle</p>
+            <ul className="flex flex-wrap justify-center gap-3 max-w-4xl mx-auto">
+              {others.map((service) => (
+                <li key={service.title}>
+                  <Link
+                    href="/services"
+                    className="inline-block px-4 py-2 rounded-full bg-blue-50 text-blue-700 text-sm font-medium hover:bg-blue-100 transition-colors"
+                  >
+                    {service.title}
+                  </Link>
+                </li>
+              ))}
+            </ul>
           </div>
 
           <div className="text-center mt-12">
@@ -133,20 +117,28 @@ export default function Home() {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="grid md:grid-cols-2 gap-12 items-center">
             <div>
+              {/* Pexels resizes on request; the unsized URL served the 6000px original (2.6 MB) to every phone.
+                  A plain img because next/image optimisation is off (see next.config.js). */}
+              {/* eslint-disable-next-line @next/next/no-img-element */}
               <img
-                src="https://images.pexels.com/photos/6419128/pexels-photo-6419128.jpeg"
-                alt="Why Choose Us"
-                className="rounded-2xl shadow-xl"
+                src="https://images.pexels.com/photos/6419128/pexels-photo-6419128.jpeg?auto=compress&cs=tinysrgb&w=900"
+                alt="Plumber tightening a pipe fitting"
+                width={900}
+                height={600}
+                loading="lazy"
+                decoding="async"
+                className="rounded-2xl shadow-xl w-full h-auto"
               />
             </div>
 
             <div className="space-y-6">
               <h2 className="text-4xl md:text-5xl font-bold text-gray-900">
-                Why Choose Zubair Plumbing?
+                Why Choose {site.name}?
               </h2>
               <p className="text-lg text-gray-600 leading-relaxed">
-                With over 15 years of experience, we provide reliable, professional plumbing
-                services backed by expertise and customer satisfaction.
+                A Lahore family business for more than {site.businessYears} years. Zubair&apos;s
+                father started it and named it after his son, and Zubair has been doing the
+                work himself since he was {site.zubairStartAge}.
               </p>
 
               <div className="space-y-4">
@@ -155,33 +147,37 @@ export default function Home() {
                     <Clock className="w-6 h-6 text-blue-600" />
                   </div>
                   <div>
-                    <h3 className="text-xl font-semibold text-gray-900 mb-2">24/7 Availability</h3>
+                    <h3 className="text-xl font-semibold text-gray-900 mb-2">Open 24/7</h3>
                     <p className="text-gray-600">
-                      Emergency plumbing services available around the clock for your convenience.
+                      Around the clock, every day, for emergencies anywhere in Lahore.
                     </p>
                   </div>
                 </div>
 
                 <div className="flex items-start">
                   <div className="bg-blue-100 p-3 rounded-lg mr-4">
-                    <Shield className="w-6 h-6 text-blue-600" />
+                    <Users className="w-6 h-6 text-blue-600" />
                   </div>
                   <div>
-                    <h3 className="text-xl font-semibold text-gray-900 mb-2">Licensed & Insured</h3>
+                    <h3 className="text-xl font-semibold text-gray-900 mb-2">
+                      Family-Run for {site.businessYears}+ Years
+                    </h3>
                     <p className="text-gray-600">
-                      Fully licensed, bonded, and insured for your peace of mind.
+                      Two generations in the trade. Zubair alone has {zubairYears}+ years of
+                      hands-on experience.
                     </p>
                   </div>
                 </div>
 
                 <div className="flex items-start">
                   <div className="bg-blue-100 p-3 rounded-lg mr-4">
-                    <Wrench className="w-6 h-6 text-blue-600" />
+                    <HandCoins className="w-6 h-6 text-blue-600" />
                   </div>
                   <div>
-                    <h3 className="text-xl font-semibold text-gray-900 mb-2">Expert Technicians</h3>
+                    <h3 className="text-xl font-semibold text-gray-900 mb-2">Honest, Fair Pricing</h3>
                     <p className="text-gray-600">
-                      Skilled professionals with years of experience in all plumbing needs.
+                      What customers bring up again and again in their reviews: honest work
+                      at a reasonable price.
                     </p>
                   </div>
                 </div>
@@ -205,9 +201,18 @@ export default function Home() {
             <h2 className="text-4xl md:text-5xl font-bold text-gray-900 mb-4">
               What Our Clients Say
             </h2>
-            <p className="text-xl text-gray-600 max-w-2xl mx-auto">
-              Don't just take our word for it - hear from our satisfied customers
-            </p>
+            <a
+              href={site.mapsUrl}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-flex items-center gap-2 text-xl text-gray-600 hover:text-blue-600 transition-colors"
+            >
+              <Star className="w-6 h-6 text-yellow-400 fill-yellow-400" aria-hidden="true" />
+              <span>
+                Rated <strong className="text-gray-900">{site.googleRating}</strong> on Google
+                from {site.googleReviewCount} reviews
+              </span>
+            </a>
           </div>
 
           <TestimonialsCarousel testimonials={testimonials} />
@@ -221,7 +226,7 @@ export default function Home() {
             Need Plumbing Services?
           </h2>
           <p className="text-xl mb-8 max-w-2xl mx-auto opacity-90">
-            Contact us today for fast, reliable, and professional plumbing solutions
+            Call or WhatsApp {site.phoneDisplay}, day or night
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
             <Link
@@ -231,11 +236,12 @@ export default function Home() {
               Book a Service
             </Link>
             <a
-              href="https://wa.me/923124740940"
+              href={whatsappLink()}
               target="_blank"
+              rel="noopener noreferrer"
               className="bg-blue-700 text-white px-8 py-4 rounded-lg font-semibold hover:bg-blue-800 transition-colors border-2 border-white text-lg"
             >
-              Whatsapp Us
+              WhatsApp Us
             </a>
           </div>
         </div>

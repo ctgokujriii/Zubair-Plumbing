@@ -1,114 +1,34 @@
-import { Wrench, Droplets, Zap, ShowerHead, Hammer, Thermometer, Settings, Home } from 'lucide-react';
+import Link from 'next/link';
 import Navbar from '@/components/Navbar';
 import Footer from '@/components/Footer';
 import ServiceCard from '@/components/ServiceCard';
+import { services } from '@/lib/services';
+import { pageMetadata } from '@/lib/metadata';
+import { site, zubairYears, whatsappLink } from '@/lib/site';
+
+export const metadata = pageMetadata({
+  title: 'Plumbing Services in Lahore',
+  description:
+    'Leak detection, pipe and sanitary fitting, kitchen plumbing, water tanks, motors and pumps, geysers, drains, water filters, seepage and minor construction. Open 24/7 anywhere in Lahore.',
+  path: '/services',
+});
+
+const reasons = [
+  {
+    title: `Family-Run for ${site.businessYears}+ Years`,
+    body: `Zubair's father started the business; Zubair has ${zubairYears}+ years of his own.`,
+  },
+  {
+    title: `Rated ${site.googleRating} on Google`,
+    body: `From ${site.googleReviewCount} customer reviews.`,
+  },
+  {
+    title: 'One Call for the Whole Job',
+    body: 'Plumbing and the building work around it, so you don\'t need a separate mason.',
+  },
+];
 
 export default function Services() {
-  const services = [
-    {
-      icon: Droplets,
-      title: 'Leak Repair',
-      description: 'Expert leak detection and repair services to prevent water damage and save on utility costs.',
-      features: [
-        'Pipe leak repairs',
-        'Faucet and fixture repairs',
-        'Water line repairs',
-        'Emergency leak services',
-        'Slab leak detection',
-      ],
-    },
-    {
-      icon: Wrench,
-      title: 'Pipe Installation & Replacement',
-      description: 'Professional pipe installation and replacement using high-quality materials and modern techniques.',
-      features: [
-        'New construction piping',
-        'Whole-house re-piping',
-        'PEX pipe installation',
-        'Copper pipe installation',
-        'Galvanized pipe replacement',
-        'Sewer line replacement',
-      ],
-    },
-    {
-      icon: ShowerHead,
-      title: 'Bathroom Plumbing',
-      description: 'Complete bathroom plumbing solutions from new installations to repairs and remodeling.',
-      features: [
-        'Toilet installation & repair',
-        'Shower and tub installation',
-        'Bathroom sink installation',
-        'Bathroom remodeling',
-        'Vanity installation',
-        'Fixture upgrades',
-      ],
-    },
-    {
-      icon: Home,
-      title: 'Kitchen Plumbing',
-      description: 'Specialized kitchen plumbing services for optimal functionality and efficiency.',
-      features: [
-        'Kitchen sink installation',
-        
-        'Kitchen faucet repair',
-        'Water line installation',
-        'Kitchen remodeling support',
-      ],
-    },
-    {
-      icon: Zap,
-      title: 'Emergency Services',
-      description: '24/7 emergency plumbing services with rapid response for urgent situations, all over Lahore.',
-      features: [
-        'Available 24/7/365',
-        'Fast response times',
-        'Burst pipe repairs',
-        'Emergency leak fixes',
-        'Clogged drain clearing',
-        'Water heater emergencies',
-      ],
-    },
-    {
-      icon: Thermometer,
-      title: 'Water Heater Services',
-      description: 'Complete water heater installation, repair, and maintenance for all types and brands.',
-      features: [
-        'Tank water heater installation',
-        'Tankless water heater setup',
-        'Water heater repairs',
-        'Regular maintenance',
-        'Energy-efficient upgrades',
-        'Emergency replacements',
-      ],
-    },
-    {
-      icon: Settings,
-      title: 'Drain Cleaning',
-      description: 'Professional drain cleaning and maintenance to keep your plumbing flowing smoothly.',
-      features: [
-        'Clogged drain clearing',
-        'Hydro jetting services',
-        'Sewer line cleaning',
-        'Camera inspections',
-        'Root removal',
-        'Preventive maintenance',
-      ],
-    },
-    {
-      icon: Hammer,
-      title: 'Fixture Installation',
-      description: 'Expert installation and replacement of all plumbing fixtures for your home or business.',
-      features: [
-        'Faucet installation',
-        'Toilet upgrades',
-        'Sink installations',
-        'Shower head replacement',
-        'Bathtub installation',
-        'Fixture repairs',
-      ],
-    },
-  ];
-
   return (
     <div className="min-h-screen">
       <Navbar />
@@ -120,20 +40,15 @@ export default function Services() {
               Our <span className="text-blue-600">Services</span>
             </h1>
             <p className="text-xl text-gray-600 max-w-3xl mx-auto leading-relaxed">
-              Comprehensive plumbing services for residential and commercial properties.
-              From routine maintenance to emergency repairs, we've got you covered.
+              Every plumbing job a home or business needs, from a dripping tap to a full
+              sanitary fitting, plus the minor construction that comes with it. Open 24/7
+              anywhere in Lahore.
             </p>
           </div>
 
           <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
-            {services.map((service, index) => (
-              <ServiceCard
-                key={index}
-                icon={service.icon}
-                title={service.title}
-                description={service.description}
-                features={service.features}
-              />
+            {services.map((service) => (
+              <ServiceCard key={service.title} {...service} />
             ))}
           </div>
         </div>
@@ -147,79 +62,49 @@ export default function Services() {
                 Ready to Get Started?
               </h2>
               <p className="text-xl opacity-90 mb-8 leading-relaxed">
-                Contact us today for professional plumbing services. We're here to help
-                with all your plumbing needs, big or small.
+                Tell us what needs doing, big or small, and we&apos;ll take it from there.
               </p>
               <div className="flex flex-col sm:flex-row gap-4">
-                <a
+                <Link
                   href="/contact"
                   className="bg-white text-blue-600 px-8 py-4 rounded-lg font-semibold hover:bg-gray-100 transition-colors text-center shadow-lg"
                 >
                   Book a Service
-                </a>
+                </Link>
                 <a
-                  href="https://wa.me/923124740940"
+                  href={whatsappLink()}
+                  target="_blank"
+                  rel="noopener noreferrer"
                   className="bg-blue-700 text-white px-8 py-4 rounded-lg font-semibold hover:bg-blue-800 transition-colors border-2 border-white text-center"
                 >
-                  Whatsapp Us
+                  WhatsApp Us
                 </a>
               </div>
             </div>
 
             <div className="bg-white/10 backdrop-blur-sm rounded-2xl p-8">
-              <h3 className="text-2xl font-bold mb-6">Why Choose Our Services?</h3>
+              <h3 className="text-2xl font-bold mb-6">Why Choose Us?</h3>
               <ul className="space-y-4">
-                <li className="flex items-start">
-                  <svg
-                    className="w-6 h-6 mr-3 mt-1 flex-shrink-0"
-                    fill="currentColor"
-                    viewBox="0 0 20 20"
-                  >
-                    <path
-                      fillRule="evenodd"
-                      d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z"
-                      clipRule="evenodd"
-                    />
-                  </svg>
-                  <div>
-                    <h4 className="font-semibold text-lg mb-1">Licensed & Insured</h4>
-                    <p className="opacity-90">Fully certified professionals for your peace of mind</p>
-                  </div>
-                </li>
-                <li className="flex items-start">
-                  <svg
-                    className="w-6 h-6 mr-3 mt-1 flex-shrink-0"
-                    fill="currentColor"
-                    viewBox="0 0 20 20"
-                  >
-                    <path
-                      fillRule="evenodd"
-                      d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z"
-                      clipRule="evenodd"
-                    />
-                  </svg>
-                  <div>
-                    <h4 className="font-semibold text-lg mb-1">Experienced Team</h4>
-                    <p className="opacity-90">Over 20 years of industry experience</p>
-                  </div>
-                </li>
-                <li className="flex items-start">
-                  <svg
-                    className="w-6 h-6 mr-3 mt-1 flex-shrink-0"
-                    fill="currentColor"
-                    viewBox="0 0 20 20"
-                  >
-                    <path
-                      fillRule="evenodd"
-                      d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z"
-                      clipRule="evenodd"
-                    />
-                  </svg>
-                  <div>
-                    <h4 className="font-semibold text-lg mb-1">Quality Guarantee</h4>
-                    <p className="opacity-90">100% satisfaction guaranteed on all work</p>
-                  </div>
-                </li>
+                {reasons.map((reason) => (
+                  <li key={reason.title} className="flex items-start">
+                    <svg
+                      className="w-6 h-6 mr-3 mt-1 flex-shrink-0"
+                      fill="currentColor"
+                      viewBox="0 0 20 20"
+                      aria-hidden="true"
+                    >
+                      <path
+                        fillRule="evenodd"
+                        d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z"
+                        clipRule="evenodd"
+                      />
+                    </svg>
+                    <div>
+                      <h4 className="font-semibold text-lg mb-1">{reason.title}</h4>
+                      <p className="opacity-90">{reason.body}</p>
+                    </div>
+                  </li>
+                ))}
               </ul>
             </div>
           </div>
