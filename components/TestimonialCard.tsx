@@ -24,7 +24,7 @@ export default function TestimonialCard({ name, content, rating }: TestimonialCa
       </div>
 
       <div className="flex items-center mt-2">
-        <div className="w-10 h-10 flex-shrink-0 bg-white rounded-full flex items-center justify-center text-blue-600 font-bold text-base">
+        <div className="w-10 h-10 flex-shrink-0 bg-white dark:bg-slate-800 rounded-full flex items-center justify-center text-blue-600 dark:text-blue-400 font-bold text-base">
           {name.charAt(0)}
         </div>
         <div className="ml-3">

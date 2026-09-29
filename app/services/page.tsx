@@ -2,6 +2,7 @@ import Link from 'next/link';
 import Navbar from '@/components/Navbar';
 import Footer from '@/components/Footer';
 import ServiceCard from '@/components/ServiceCard';
+import Reveal from '@/components/Reveal';
 import { services } from '@/lib/services';
 import { pageMetadata } from '@/lib/metadata';
 import { site, zubairYears, whatsappLink } from '@/lib/site';
@@ -33,13 +34,13 @@ export default function Services() {
     <div className="min-h-screen">
       <Navbar />
 
-      <div className="pt-20 bg-gradient-to-br from-blue-50 via-white to-blue-50">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20">
+      <div className="pt-20 bg-gradient-to-br from-blue-50 dark:from-slate-950 via-white dark:via-slate-900 to-blue-50 dark:to-slate-950">
+        <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20">
           <div className="text-center mb-16">
-            <h1 className="text-5xl md:text-6xl font-bold text-gray-900 mb-6">
-              Our <span className="text-blue-600">Services</span>
+            <h1 className="text-5xl md:text-6xl font-bold text-gray-900 dark:text-white mb-6">
+              Our <span className="text-shimmer">Services</span>
             </h1>
-            <p className="text-xl text-gray-600 max-w-3xl mx-auto leading-relaxed">
+            <p className="text-xl text-gray-600 dark:text-slate-400 max-w-3xl mx-auto leading-relaxed">
               Every plumbing job a home or business needs, from a dripping tap to a full
               sanitary fitting, plus the minor construction that comes with it. Open 24/7
               anywhere in Lahore.
@@ -47,15 +48,17 @@ export default function Services() {
           </div>
 
           <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
-            {services.map((service) => (
-              <ServiceCard key={service.title} {...service} />
+            {services.map((service, index) => (
+              <Reveal key={service.title} delay={(index % 3) * 100} className="h-full">
+                <ServiceCard {...service} />
+              </Reveal>
             ))}
           </div>
         </div>
       </div>
 
-      <section className="py-20 bg-blue-600 text-white">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <section className="py-20 bg-blue-600 dark:bg-blue-900 text-white">
+        <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="grid md:grid-cols-2 gap-12 items-center">
             <div>
               <h2 className="text-4xl md:text-5xl font-bold mb-6">

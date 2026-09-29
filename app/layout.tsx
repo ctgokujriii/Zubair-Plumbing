@@ -2,7 +2,9 @@ import './globals.css';
 import type { Metadata } from 'next';
 import { Inter } from 'next/font/google';
 import FloatingContactMenu from '@/components/FloatingContactMenu';
+import ParticleBackground from '@/components/ParticleBackground';
 import { site } from '@/lib/site';
+import { themeScript } from '@/lib/theme';
 
 const inter = Inter({
   subsets: ['latin'],
@@ -67,12 +69,24 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
+    // suppressHydrationWarning: themeScript adds the "dark" class before React
+    // loads, so <html> legitimately differs from what the server sent.
     <html lang="en" suppressHydrationWarning>
+      <head>
+        <script dangerouslySetInnerHTML={{ __html: themeScript }} />
+      </head>
       <body className={inter.className}>
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd).replace(/</g, '\\u003c') }}
         />
+        {/* Layering: the particle canvas is fixed at z-index 1, which paints it
+            over every section's background (so the blue bands and the footer
+            get particles too) but under anything at z-10. Every section's
+            content wrapper is `relative z-10`, which keeps text, cards and
+            photos above the particles. A new section needs the same, or its
+            content ends up underneath. */}
+        <ParticleBackground />
         {children}
         <FloatingContactMenu />
       </body>

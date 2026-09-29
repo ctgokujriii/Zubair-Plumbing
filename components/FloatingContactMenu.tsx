@@ -21,15 +21,15 @@ export default function FloatingContactMenu() {
     {
       label: 'Phone',
       href: `tel:${site.phoneTel}`,
-      icon: <Phone size={22} className="text-blue-600" />,
-      color: 'bg-blue-50',
+      icon: <Phone size={22} className="text-blue-600 dark:text-blue-400" />,
+      color: 'bg-blue-50 dark:bg-slate-800',
       ariaLabel: 'Call us',
     },
     {
       label: 'WhatsApp',
       href: whatsappLink(),
       icon: <FaWhatsapp size={22} className="text-green-500" />,
-      color: 'bg-green-50',
+      color: 'bg-green-50 dark:bg-slate-800',
       ariaLabel: 'Message us on WhatsApp',
       target: '_blank',
     },
@@ -37,7 +37,7 @@ export default function FloatingContactMenu() {
       label: 'Contact Form',
       href: '/contact',
       icon: <Mail size={22} className="text-yellow-500" />,
-      color: 'bg-yellow-50',
+      color: 'bg-yellow-50 dark:bg-slate-800',
       ariaLabel: 'Open contact form',
     },
   ];
@@ -68,7 +68,7 @@ export default function FloatingContactMenu() {
             style={{ transitionDelay: open ? `${index * 75}ms` : '0ms' }}
           >
             {item.icon}
-            <span className="font-semibold text-gray-900">{item.label}</span>
+            <span className="font-semibold text-gray-900 dark:text-white">{item.label}</span>
           </a>
         ))}
       </div>

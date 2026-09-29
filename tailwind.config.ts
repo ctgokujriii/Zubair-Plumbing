@@ -61,6 +61,29 @@ const config: Config = {
           '5': 'hsl(var(--chart-5))',
         },
       },
+      // Hero effects modelled on taiohub.com, done in CSS instead of framer-motion.
+      // Use them behind motion-safe: so reduced-motion users get the page as-is.
+      keyframes: {
+        'fade-up': {
+          from: { opacity: '0', transform: 'translateY(30px)' },
+          to: { opacity: '1', transform: 'translateY(0)' },
+        },
+        'scale-in': {
+          from: { opacity: '0', transform: 'scale(0.9) translateY(-20px)' },
+          to: { opacity: '1', transform: 'scale(1) translateY(0)' },
+        },
+        'glow-pulse': {
+          '0%, 100%': { transform: 'scale(1)' },
+          '50%': { transform: 'scale(1.1)' },
+        },
+        // The heading shimmer's keyframes live in globals.css: pulled in through
+        // @apply, Tailwind 3 emitted them empty and the sweep never moved.
+      },
+      animation: {
+        'fade-up': 'fade-up 0.8s ease-out both',
+        'scale-in': 'scale-in 1s ease-out both',
+        'glow-pulse': 'glow-pulse 4s ease-in-out infinite',
+      },
     },
   },
   plugins: [],

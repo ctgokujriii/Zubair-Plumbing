@@ -18,13 +18,13 @@ export default function Contact() {
     <div className="min-h-screen">
       <Navbar />
 
-      <div className="pt-20 bg-gradient-to-br from-blue-50 via-white to-blue-50">
-        <div className="max-w-7xl mx-auto px-4 py-20">
+      <div className="pt-20 bg-gradient-to-br from-blue-50 dark:from-slate-950 via-white dark:via-slate-900 to-blue-50 dark:to-slate-950">
+        <div className="relative z-10 max-w-7xl mx-auto px-4 py-20">
           <div className="text-center mb-16">
-            <h1 className="text-5xl font-bold text-gray-900 mb-6">
-              Get In <span className="text-blue-600">Touch</span>
+            <h1 className="text-5xl font-bold text-gray-900 dark:text-white mb-6">
+              Get In <span className="text-shimmer">Touch</span>
             </h1>
-            <p className="text-xl text-gray-600">
+            <p className="text-xl text-gray-600 dark:text-slate-400">
               Have a plumbing question or need to schedule a service? We&apos;re here to help!
             </p>
           </div>
@@ -34,14 +34,14 @@ export default function Contact() {
 
             {/* INFO */}
             <div className="space-y-10">
-              <div className="bg-white rounded-2xl shadow-xl p-12 md:p-16">
+              <div className="bg-white dark:bg-slate-800 rounded-2xl shadow-xl p-12 md:p-16">
                 <h2 className="text-3xl font-bold mb-6">Contact Information</h2>
 
                 <p className="flex items-center gap-3 group mb-4">
                   <Phone className="text-blue-500 flex-shrink-0 transition-transform duration-200 ease-in-out group-hover:scale-110" aria-hidden="true" />
                   <a
                     href={`tel:${site.phoneTel}`}
-                    className="hover:text-blue-600 transition-colors"
+                    className="hover:text-blue-600 dark:hover:text-blue-400 transition-colors"
                   >
                     {site.phoneDisplay}
                   </a>
@@ -53,7 +53,7 @@ export default function Contact() {
                     href={whatsappLink()}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="hover:text-blue-600 transition-colors"
+                    className="hover:text-blue-600 dark:hover:text-blue-400 transition-colors"
                   >
                     WhatsApp {site.phoneDisplay}
                   </a>
@@ -63,7 +63,7 @@ export default function Contact() {
                   <Mail className="text-red-500 flex-shrink-0 transition-transform duration-200 ease-in-out group-hover:scale-110" aria-hidden="true" />
                   <a
                     href={`mailto:${site.email}`}
-                    className="hover:text-blue-600 transition-colors break-all"
+                    className="hover:text-blue-600 dark:hover:text-blue-400 transition-colors break-all"
                   >
                     {site.email}
                   </a>
@@ -75,7 +75,7 @@ export default function Contact() {
                     href={site.mapsUrl}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="hover:text-blue-600 transition-colors"
+                    className="hover:text-blue-600 dark:hover:text-blue-400 transition-colors"
                   >
                     {fullAddress}
                   </a>

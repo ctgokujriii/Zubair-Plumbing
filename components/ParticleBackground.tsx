@@ -12,120 +12,160 @@ interface Particle {
   opacitySpeed: number;
 }
 
-// One particle per this many square pixels, so a phone gets a similar density
-// to a desktop instead of 300 particles crammed into a small screen.
-const AREA_PER_PARTICLE = 3000;
-const MAX_PARTICLES = 300;
-const COLOR = '59, 130, 246'; // Tailwind blue-500
+// Modelled on the tsParticles network on taiohub.com, which Zubair asked for:
+// about 100 particles on a 1009x768 hero there, linked within 120px, lines
+// fading with distance. Drawn by hand rather than with tsParticles so the
+// effect doesn't cost ~60 KB of JavaScript.
+//
+// One fixed, screen-sized canvas behind the whole site (mounted in the root
+// layout), so every page and every section has it, at a cost that doesn't grow
+// with page length. It sits above section backgrounds but below content; see
+// the z-index note in app/layout.tsx.
+const AREA_PER_PARTICLE = 7500;
+const MAX_PARTICLES = 150;
+const LINK_DISTANCE = 120;
+const LINK_OPACITY = 0.4;
+const SPEED = 1; // px per frame at 60fps
 
-// The glow is drawn once onto a small offscreen canvas and stamped for every
-// particle. Building a fresh radial gradient per particle per frame was the
-// most expensive thing on the page.
-function makeSprite() {
-  const size = 64;
-  const sprite = document.createElement('canvas');
-  sprite.width = sprite.height = size;
-  const ctx = sprite.getContext('2d')!;
-  const r = size / 2;
-  const glow = ctx.createRadialGradient(r, r, 0, r, r, r);
-  glow.addColorStop(0, `rgba(${COLOR}, 0.5)`);
-  glow.addColorStop(1, `rgba(${COLOR}, 0)`);
-  ctx.fillStyle = glow;
-  ctx.fillRect(0, 0, size, size);
-  ctx.beginPath();
-  ctx.arc(r, r, r / 3, 0, Math.PI * 2);
-  ctx.fillStyle = `rgb(${COLOR})`;
-  ctx.fill();
-  return sprite;
-}
+// Dark mode uses taiohub's own colours, which were made for a dark page.
+// Light mode swaps them for blues: taiohub's grey lines vanish on white.
+const THEMES = {
+  light: { dot: '14, 165, 233', link: '96, 165, 250', linkWidth: 1 }, // sky-500, blue-400
+  dark: { dot: '0, 191, 255', link: '171, 184, 194', linkWidth: 1.5 }, // taiohub.com
+};
+
+// Lines are grouped into a few opacity steps so each step is one stroke()
+// call, instead of a separate stroke for every pair.
+const LINK_BUCKETS = 6;
 
 export default function ParticleBackground() {
   const canvasRef = useRef<HTMLCanvasElement | null>(null);
 
   useEffect(() => {
     const canvas = canvasRef.current;
-    const parent = canvas?.parentElement;
     const ctx = canvas?.getContext('2d');
-    if (!canvas || !parent || !ctx) return;
+    if (!canvas || !ctx) return;
 
-    const sprite = makeSprite();
+    const root = document.documentElement;
     const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    let theme = root.classList.contains('dark') ? THEMES.dark : THEMES.light;
     let particles: Particle[] = [];
+    let width = 0;
+    let height = 0;
     let animationId = 0;
-    let visible = true;
+    let lastFrame = 0;
+    const buckets: number[][] = Array.from({ length: LINK_BUCKETS }, () => []);
 
-    const createParticle = (): Particle => ({
-      x: Math.random() * canvas.width,
-      y: Math.random() * canvas.height,
-      size: Math.random() * 2 + 1,
-      vx: (Math.random() - 0.5) * 0.4,
-      vy: (Math.random() - 0.5) * 0.4,
-      opacity: Math.random() * 0.5 + 0.2,
-      opacitySpeed: (Math.random() - 0.5) * 0.01,
-    });
-
-    const draw = () => {
-      ctx.clearRect(0, 0, canvas.width, canvas.height);
-      for (const p of particles) {
-        const glow = p.size * 3;
-        ctx.globalAlpha = p.opacity;
-        ctx.drawImage(sprite, p.x - glow, p.y - glow, glow * 2, glow * 2);
-      }
-      ctx.globalAlpha = 1;
+    const createParticle = (): Particle => {
+      const angle = Math.random() * Math.PI * 2;
+      const speed = SPEED * (0.5 + Math.random() * 0.5);
+      return {
+        x: Math.random() * width,
+        y: Math.random() * height,
+        size: Math.random() * 2 + 1,
+        vx: Math.cos(angle) * speed,
+        vy: Math.sin(angle) * speed,
+        opacity: Math.random() * 0.6 + 0.2,
+        opacitySpeed: (Math.random() - 0.5) * 0.01,
+      };
     };
 
-    const step = () => {
+    const draw = () => {
+      ctx.clearRect(0, 0, width, height);
+
+      // Links first, so the dots sit on top of them
+      for (const bucket of buckets) bucket.length = 0;
+      const maxSq = LINK_DISTANCE * LINK_DISTANCE;
+      for (let i = 0; i < particles.length; i++) {
+        const a = particles[i];
+        for (let j = i + 1; j < particles.length; j++) {
+          const b = particles[j];
+          const dx = a.x - b.x;
+          const dy = a.y - b.y;
+          const distSq = dx * dx + dy * dy;
+          if (distSq >= maxSq) continue;
+          const strength = 1 - Math.sqrt(distSq) / LINK_DISTANCE;
+          const bucket = Math.min(LINK_BUCKETS - 1, Math.floor(strength * LINK_BUCKETS));
+          buckets[bucket].push(i, j);
+        }
+      }
+      ctx.lineWidth = theme.linkWidth;
+      for (let k = 0; k < LINK_BUCKETS; k++) {
+        const pairs = buckets[k];
+        if (!pairs.length) continue;
+        ctx.strokeStyle = `rgba(${theme.link}, ${(LINK_OPACITY * (k + 0.5)) / LINK_BUCKETS})`;
+        ctx.beginPath();
+        for (let n = 0; n < pairs.length; n += 2) {
+          const a = particles[pairs[n]];
+          const b = particles[pairs[n + 1]];
+          ctx.moveTo(a.x, a.y);
+          ctx.lineTo(b.x, b.y);
+        }
+        ctx.stroke();
+      }
+
       for (const p of particles) {
-        p.x += p.vx;
-        p.y += p.vy;
-        p.opacity += p.opacitySpeed;
-        if (p.opacity <= 0.15 || p.opacity >= 0.7) p.opacitySpeed *= -1;
-        if (p.x <= 0 || p.x >= canvas.width) p.vx *= -1;
-        if (p.y <= 0 || p.y >= canvas.height) p.vy *= -1;
+        ctx.fillStyle = `rgba(${theme.dot}, ${p.opacity})`;
+        ctx.beginPath();
+        ctx.arc(p.x, p.y, p.size, 0, Math.PI * 2);
+        ctx.fill();
+      }
+    };
+
+    const step = (now: number) => {
+      // Scaled by elapsed time so a 120Hz phone doesn't run it at double speed
+      const dt = lastFrame ? Math.min((now - lastFrame) / (1000 / 60), 3) : 1;
+      lastFrame = now;
+      for (const p of particles) {
+        p.x += p.vx * dt;
+        p.y += p.vy * dt;
+        p.opacity += p.opacitySpeed * dt;
+        if (p.opacity <= 0.15 || p.opacity >= 0.8) p.opacitySpeed *= -1;
+        if (p.x <= 0 || p.x >= width) p.vx *= -1;
+        if (p.y <= 0 || p.y >= height) p.vy *= -1;
       }
       draw();
       animationId = requestAnimationFrame(step);
     };
 
-    const start = () => {
-      if (!reduceMotion && visible && !animationId) animationId = requestAnimationFrame(step);
-    };
-    const stop = () => {
-      cancelAnimationFrame(animationId);
-      animationId = 0;
-    };
-
-    // Sized to the hero, not the window: the hero is taller than the screen on
-    // phones, and a window-sized canvas left its bottom strip bare.
+    // Drawn at the screen's pixel density (capped at 2x) so lines stay sharp
+    // on phones.
     const resize = () => {
-      canvas.width = parent.clientWidth;
-      canvas.height = parent.clientHeight;
-      const count = Math.min(
-        MAX_PARTICLES,
-        Math.round((canvas.width * canvas.height) / AREA_PER_PARTICLE)
-      );
-      particles = Array.from({ length: count }, createParticle);
+      width = window.innerWidth;
+      height = window.innerHeight;
+      const dpr = Math.min(window.devicePixelRatio || 1, 2);
+      canvas.width = Math.round(width * dpr);
+      canvas.height = Math.round(height * dpr);
+      // Sized in px from the window rather than 100vh, which on phones is the
+      // height with the address bar hidden and would stretch the drawing.
+      canvas.style.width = `${width}px`;
+      canvas.style.height = `${height}px`;
+      ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+      const target = Math.min(MAX_PARTICLES, Math.round((width * height) / AREA_PER_PARTICLE));
+      // Keep the particles that are still on screen: a phone's address bar
+      // showing and hiding resizes the window, and re-seeding every time made
+      // the whole field jump while scrolling.
+      particles = particles.filter((p) => p.x <= width && p.y <= height).slice(0, target);
+      while (particles.length < target) particles.push(createParticle());
       draw();
     };
 
     resize();
-    const resizeObserver = new ResizeObserver(resize);
-    resizeObserver.observe(parent);
+    window.addEventListener('resize', resize);
 
-    // Nothing to animate once the hero has scrolled away.
-    const intersectionObserver = new IntersectionObserver(([entry]) => {
-      visible = entry.isIntersecting;
-      if (visible) start();
-      else stop();
+    // Recolour immediately when the theme toggle flips the class on <html>.
+    const themeObserver = new MutationObserver(() => {
+      theme = root.classList.contains('dark') ? THEMES.dark : THEMES.light;
+      if (!animationId) draw();
     });
-    intersectionObserver.observe(canvas);
+    themeObserver.observe(root, { attributes: true, attributeFilter: ['class'] });
 
-    start();
+    if (!reduceMotion) animationId = requestAnimationFrame(step);
 
     return () => {
-      stop();
-      resizeObserver.disconnect();
-      intersectionObserver.disconnect();
+      cancelAnimationFrame(animationId);
+      window.removeEventListener('resize', resize);
+      themeObserver.disconnect();
     };
   }, []);
 
@@ -133,7 +173,7 @@ export default function ParticleBackground() {
     <canvas
       ref={canvasRef}
       aria-hidden="true"
-      className="absolute inset-0 w-full h-full pointer-events-none"
+      className="fixed top-0 left-0 pointer-events-none z-[1]"
     />
   );
 }

@@ -42,6 +42,31 @@ There is no backend. The form builds a WhatsApp message and opens
 `wa.me/923124740940` with it; the customer presses Send in WhatsApp. Nothing is sent
 until they do.
 
+## Effects and dark mode
+
+The look is modelled on [taiohub.com](https://taiohub.com), built without its
+animation libraries (framer-motion, tsParticles) to keep the site light.
+
+- **Particle network** (`components/ParticleBackground.tsx`): one fixed,
+  screen-sized canvas behind every page, mounted in `app/layout.tsx`. Its cost
+  depends on the screen size, not the page length.
+- **Layering rule:** the canvas sits at `z-index: 1`, above section backgrounds
+  but below content. Every section's content wrapper is `relative z-10`. **A new
+  section needs the same, or its content ends up underneath the particles.**
+- **Hero:** fade-up entrance, pulsing glow behind the photo, light sweep across
+  "Trust". The keyframes are in `tailwind.config.ts`; the sweep (`.text-shimmer`)
+  is in `app/globals.css`.
+- **Scroll reveals:** wrap content in `<Reveal>`. Only content below the fold when
+  the page loads is hidden, so nothing flashes and nothing stays hidden without
+  JavaScript.
+- Everything above is switched off for visitors whose phone asks for reduced
+  motion.
+- **Dark mode:** the sun/moon button in the navigation bar. It follows the phone's
+  setting until a visitor chooses, then remembers the choice. A script in `<head>`
+  (`lib/theme.ts`) applies it before the first paint, so there's no white flash. The
+  palette is taiohub's (slate-900 page, slate-100 text). Any new colour class needs a
+  `dark:` partner.
+
 ## Generated at build time
 
 - `app/icon.svg`: browser tab icon

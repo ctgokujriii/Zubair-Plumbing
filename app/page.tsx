@@ -6,6 +6,7 @@ import Footer from '@/components/Footer';
 import Hero from '@/components/Hero';
 import ServiceCard from '@/components/ServiceCard';
 import TestimonialsCarousel from '@/components/TestimonialsCarousel';
+import Reveal from '@/components/Reveal';
 import { services, featuredServiceTitles } from '@/lib/services';
 import { site, zubairYears, whatsappLink } from '@/lib/site';
 
@@ -68,38 +69,40 @@ export default function Home() {
       <Hero />
 
       {/* Services Section */}
-      <section className="py-20 bg-white">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center mb-16">
-            <h2 className="text-4xl md:text-5xl font-bold text-gray-900 mb-4">
+      <section className="py-20 bg-white dark:bg-slate-900">
+        <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <Reveal className="text-center mb-16">
+            <h2 className="text-4xl md:text-5xl font-bold text-gray-900 dark:text-white mb-4">
               Our Services
             </h2>
-            <p className="text-xl text-gray-600 max-w-2xl mx-auto">
+            <p className="text-xl text-gray-600 dark:text-slate-400 max-w-2xl mx-auto">
               Every plumbing job a home or business needs, and the minor construction that comes with it
             </p>
-          </div>
+          </Reveal>
 
           <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
-            {featured.map((service) => (
-              <ServiceCard key={service.title} {...service} />
+            {featured.map((service, index) => (
+              <Reveal key={service.title} delay={index * 100} className="h-full">
+                <ServiceCard {...service} />
+              </Reveal>
             ))}
           </div>
 
-          <div className="mt-12 text-center">
-            <p className="text-gray-600 font-semibold mb-4">We also handle</p>
+          <Reveal className="mt-12 text-center">
+            <p className="text-gray-600 dark:text-slate-400 font-semibold mb-4">We also handle</p>
             <ul className="flex flex-wrap justify-center gap-3 max-w-4xl mx-auto">
               {others.map((service) => (
                 <li key={service.title}>
                   <Link
                     href="/services"
-                    className="inline-block px-4 py-2 rounded-full bg-blue-50 text-blue-700 text-sm font-medium hover:bg-blue-100 transition-colors"
+                    className="inline-block px-4 py-2 rounded-full bg-blue-50 dark:bg-blue-500/10 text-blue-700 dark:text-blue-300 text-sm font-medium hover:bg-blue-100 dark:hover:bg-blue-500/20 transition-colors"
                   >
                     {service.title}
                   </Link>
                 </li>
               ))}
             </ul>
-          </div>
+          </Reveal>
 
           <div className="text-center mt-12">
             <Link
@@ -113,10 +116,10 @@ export default function Home() {
       </section>
 
       {/* Why Choose Us */}
-      <section className="py-20 bg-gray-50">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <section className="py-20 bg-gray-50 dark:bg-slate-950">
+        <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="grid md:grid-cols-2 gap-12 items-center">
-            <div>
+            <Reveal>
               {/* Pexels resizes on request; the unsized URL served the 6000px original (2.6 MB) to every phone.
                   A plain img because next/image optimisation is off (see next.config.js). */}
               {/* eslint-disable-next-line @next/next/no-img-element */}
@@ -129,13 +132,13 @@ export default function Home() {
                 decoding="async"
                 className="rounded-2xl shadow-xl w-full h-auto"
               />
-            </div>
+            </Reveal>
 
-            <div className="space-y-6">
-              <h2 className="text-4xl md:text-5xl font-bold text-gray-900">
+            <Reveal delay={150} className="space-y-6">
+              <h2 className="text-4xl md:text-5xl font-bold text-gray-900 dark:text-white">
                 Why Choose {site.name}?
               </h2>
-              <p className="text-lg text-gray-600 leading-relaxed">
+              <p className="text-lg text-gray-600 dark:text-slate-400 leading-relaxed">
                 A Lahore family business for more than {site.businessYears} years. Zubair&apos;s
                 father started it and named it after his son, and Zubair has been doing the
                 work himself since he was {site.zubairStartAge}.
@@ -143,26 +146,26 @@ export default function Home() {
 
               <div className="space-y-4">
                 <div className="flex items-start">
-                  <div className="bg-blue-100 p-3 rounded-lg mr-4">
-                    <Clock className="w-6 h-6 text-blue-600" />
+                  <div className="bg-blue-100 dark:bg-blue-500/15 p-3 rounded-lg mr-4">
+                    <Clock className="w-6 h-6 text-blue-600 dark:text-blue-400" />
                   </div>
                   <div>
-                    <h3 className="text-xl font-semibold text-gray-900 mb-2">Open 24/7</h3>
-                    <p className="text-gray-600">
+                    <h3 className="text-xl font-semibold text-gray-900 dark:text-white mb-2">Open 24/7</h3>
+                    <p className="text-gray-600 dark:text-slate-400">
                       Around the clock, every day, for emergencies anywhere in Lahore.
                     </p>
                   </div>
                 </div>
 
                 <div className="flex items-start">
-                  <div className="bg-blue-100 p-3 rounded-lg mr-4">
-                    <Users className="w-6 h-6 text-blue-600" />
+                  <div className="bg-blue-100 dark:bg-blue-500/15 p-3 rounded-lg mr-4">
+                    <Users className="w-6 h-6 text-blue-600 dark:text-blue-400" />
                   </div>
                   <div>
-                    <h3 className="text-xl font-semibold text-gray-900 mb-2">
+                    <h3 className="text-xl font-semibold text-gray-900 dark:text-white mb-2">
                       Family-Run for {site.businessYears}+ Years
                     </h3>
-                    <p className="text-gray-600">
+                    <p className="text-gray-600 dark:text-slate-400">
                       Two generations in the trade. Zubair alone has {zubairYears}+ years of
                       hands-on experience.
                     </p>
@@ -170,12 +173,12 @@ export default function Home() {
                 </div>
 
                 <div className="flex items-start">
-                  <div className="bg-blue-100 p-3 rounded-lg mr-4">
-                    <HandCoins className="w-6 h-6 text-blue-600" />
+                  <div className="bg-blue-100 dark:bg-blue-500/15 p-3 rounded-lg mr-4">
+                    <HandCoins className="w-6 h-6 text-blue-600 dark:text-blue-400" />
                   </div>
                   <div>
-                    <h3 className="text-xl font-semibold text-gray-900 mb-2">Honest, Fair Pricing</h3>
-                    <p className="text-gray-600">
+                    <h3 className="text-xl font-semibold text-gray-900 dark:text-white mb-2">Honest, Fair Pricing</h3>
+                    <p className="text-gray-600 dark:text-slate-400">
                       What customers bring up again and again in their reviews: honest work
                       at a reasonable price.
                     </p>
@@ -189,39 +192,41 @@ export default function Home() {
               >
                 Learn More About Us
               </Link>
-            </div>
+            </Reveal>
           </div>
         </div>
       </section>
 
       {/* Testimonials Carousel */}
-      <section className="py-20 bg-white">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center mb-16">
-            <h2 className="text-4xl md:text-5xl font-bold text-gray-900 mb-4">
+      <section className="py-20 bg-white dark:bg-slate-900">
+        <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <Reveal className="text-center mb-16">
+            <h2 className="text-4xl md:text-5xl font-bold text-gray-900 dark:text-white mb-4">
               What Our Clients Say
             </h2>
             <a
               href={site.mapsUrl}
               target="_blank"
               rel="noopener noreferrer"
-              className="inline-flex items-center gap-2 text-xl text-gray-600 hover:text-blue-600 transition-colors"
+              className="inline-flex items-center gap-2 text-xl text-gray-600 dark:text-slate-400 hover:text-blue-600 dark:hover:text-blue-400 transition-colors"
             >
               <Star className="w-6 h-6 text-yellow-400 fill-yellow-400" aria-hidden="true" />
               <span>
-                Rated <strong className="text-gray-900">{site.googleRating}</strong> on Google
+                Rated <strong className="text-gray-900 dark:text-white">{site.googleRating}</strong> on Google
                 from {site.googleReviewCount} reviews
               </span>
             </a>
-          </div>
+          </Reveal>
 
-          <TestimonialsCarousel testimonials={testimonials} />
+          <Reveal delay={150}>
+            <TestimonialsCarousel testimonials={testimonials} />
+          </Reveal>
         </div>
       </section>
 
       {/* Call to Action */}
-      <section className="py-20 bg-blue-600 text-white">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+      <section className="py-20 bg-blue-600 dark:bg-blue-900 text-white">
+        <Reveal className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
           <h2 className="text-4xl md:text-5xl font-bold mb-6">
             Need Plumbing Services?
           </h2>
@@ -231,7 +236,7 @@ export default function Home() {
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
             <Link
               href="/contact"
-              className="bg-white text-blue-600 px-8 py-4 rounded-lg font-semibold hover:bg-gray-100 transition-colors shadow-lg text-lg"
+              className="bg-white text-blue-600 px-8 py-4 rounded-lg font-semibold hover:bg-gray-100 transition-all duration-300 shadow-lg hover:shadow-xl hover:shadow-blue-900/40 hover:scale-105 active:scale-95 text-lg"
             >
               Book a Service
             </Link>
@@ -239,12 +244,12 @@ export default function Home() {
               href={whatsappLink()}
               target="_blank"
               rel="noopener noreferrer"
-              className="bg-blue-700 text-white px-8 py-4 rounded-lg font-semibold hover:bg-blue-800 transition-colors border-2 border-white text-lg"
+              className="bg-blue-700 text-white px-8 py-4 rounded-lg font-semibold hover:bg-blue-800 transition-all duration-300 border-2 border-white hover:shadow-xl hover:shadow-blue-900/40 hover:scale-105 active:scale-95 text-lg"
             >
               WhatsApp Us
             </a>
           </div>
-        </div>
+        </Reveal>
       </section>
 
       <Footer />

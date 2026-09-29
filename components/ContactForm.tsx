@@ -68,7 +68,8 @@ const OTHER_AREA = 'Other (please mention in message)';
 
 const emptyForm = { name: '', phone: '', area: '', service: '', message: '' };
 
-const inputClass = 'w-full px-4 py-3 border rounded-lg';
+const inputClass =
+  'w-full px-4 py-3 border rounded-lg bg-white dark:bg-slate-900 text-gray-900 dark:text-white placeholder:text-gray-400 dark:placeholder:text-slate-500';
 
 // Service names come in as plain strings from the page, which keeps the
 // services list and its icons out of the browser bundle.
@@ -112,13 +113,13 @@ export default function ContactForm({ serviceTitles }: { serviceTitles: string[]
   };
 
   return (
-    <div className="bg-white rounded-2xl shadow-xl p-8">
+    <div className="bg-white dark:bg-slate-800 rounded-2xl shadow-xl p-8">
       <h2 className="text-3xl font-bold mb-6">Send Us a Message</h2>
 
       {submitStatus === 'opened' && (
         <div
           role="status"
-          className="mb-6 bg-green-50 border border-green-200 text-green-800 px-4 py-3 rounded-lg"
+          className="mb-6 bg-green-50 dark:bg-green-500/10 border border-green-200 dark:border-green-500/30 text-green-800 dark:text-green-300 px-4 py-3 rounded-lg"
         >
           Your message is ready in WhatsApp. Press <strong>Send</strong> there and we&apos;ll
           get back to you shortly.
