@@ -3,7 +3,8 @@ import Link from 'next/link';
 import { Clock, HandCoins, Users, Star } from 'lucide-react';
 import Navbar from '@/components/Navbar';
 import Footer from '@/components/Footer';
-import Hero from '@/components/Hero';
+import HouseTour from '@/components/HouseTour';
+import MeetZubair from '@/components/MeetZubair';
 import ServiceCard from '@/components/ServiceCard';
 import TestimonialsCarousel from '@/components/TestimonialsCarousel';
 import Reveal from '@/components/Reveal';
@@ -66,7 +67,8 @@ export default function Home() {
     <div className="min-h-screen">
       <Navbar />
 
-      <Hero />
+      <HouseTour />
+      <MeetZubair />
 
       {/* Services Section */}
       <section className="py-20 bg-white dark:bg-slate-900">
